@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Recipes</h1>
+<ul class="recipe-list">
+    {% for recipe in recipes %}
+    <li class="recipe-item">
+        <div class="recipe-thumbnail">
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+        </div>
+        <div class="recipe-details">
+            <h3 class="recipe-name"><a href="{% url 'recipes:recipe_detail' recipe.pk %}">{{ recipe.name }}</a></h3>
+            <p class="recipe-description">{{ recipe.description }}</p>
+            <p class="recipe-meta">Prep Time: {{ recipe.prep_time }} | Cook Time: {{ recipe.cook_time }}</p>
+        </div>
+    </li>
+    {% empty %}
+    <li>No recipes yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

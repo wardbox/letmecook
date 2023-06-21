@@ -1,0 +1,228 @@
+:root {
+    --primary-color: #000000;
+    --secondary-color: #ffffff;
+    --link-hover-color: #666666;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 1rem 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    font-weight: normal;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+main {
+    margin: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--secondary-color);
+}
+
+header {
+    padding: 1rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+a:focus {
+    outline: 2px solid var(--secondary-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+
+nav a {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+nav a:last-child {
+    margin-right: 0;
+}
+
+footer {
+    padding: 1rem;
+    border-top: 2px solid var(--secondary-color);
+    text-align: center;
+    margin-top: 2rem;
+}
+
+figure {
+    margin: 2rem 0;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: #888888;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+ol {
+    padding-left: 1rem;
+}
+
+ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* INSTRUCTIONS */
+
+.instructions-list {
+    list-style-type: none;
+    padding-left: 0;
+    counter-reset: instruction-counter;
+    /* Reset counter */
+}
+
+.instructions-item {
+    padding: 0.5rem 0;
+    counter-increment: instruction-counter;
+    /* Increment counter */
+}
+
+.instructions-item:before {
+    content: "Step " counter(instruction-counter) ": ";
+    /* Insert counter before text */
+    font-weight: bold;
+}
+
+/* RECIPE */
+
+
+.recipe-image {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+.recipe-image figcaption {
+    font-style: italic;
+    color: var(--text-secondary-color);
+    margin-top: 0.5rem;
+}
+
+.recipe-image img {
+    max-width: 100%;
+    /* Maximum width of the image */
+    max-height: 500px;
+    /* Maximum height of the image */
+    width: auto;
+    /* Width auto-scales with respect to aspect ratio */
+    height: auto;
+    /* Height auto-scales with respect to aspect ratio */
+    object-fit: cover;
+    /* Image will cover the entire space of width & height and will be clipped if it doesn't fit */
+}
+
+.recipe-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recipe-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.recipe-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 50%;
+}
+
+.recipe-thumbnail img {
+    max-width: 100%;
+    height: auto;
+}
+
+.recipe-name {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.recipe-name a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.recipe-name a:hover {
+    color: var(--link-hover-color);
+}
+
+/* INGREDIENTS */
+
+.ingredients-list {
+    list-style-type: none;
+    padding-left: 0;
+    column-count: 2;
+    column-gap: 1rem;
+}
+
+
+.ingredients-item {
+    padding: 0.5rem 0;
+}
+
+
+.fraction {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    line-height: 1;
+}
+
+.fraction sup,
+.fraction sub {
+    font-size: 75%;
+}
+
+.fraction sub {
+    margin-top: 0.2em;
+}
