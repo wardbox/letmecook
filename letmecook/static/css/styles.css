@@ -8,7 +8,6 @@
 body {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -69,7 +68,6 @@ a:hover {
 nav {
     display: flex;
     text-transform: uppercase;
-    margin-top: 3rem;
 }
 
 nav a {
@@ -175,19 +173,13 @@ ol li {
 }
 
 .recipe-thumbnail {
-    height: 100px;
     width: 100px;
     margin-right: 1rem;
     position: relative;
     overflow: hidden;
 }
 
-.recipe-thumbnail img {
-    display: inline;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
-}
+
 
 .recipe-name {
     font-size: 1rem;
