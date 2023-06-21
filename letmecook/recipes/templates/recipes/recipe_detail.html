@@ -4,7 +4,9 @@
 <h1>{{ recipe.name }}</h1>
 
 <figure class="recipe-image">
+  {% if recipe.image %}
   <img src="{{ recipe.image.url }}" alt="Image of {{ recipe.name }}">
+  {% endif %}
   <figcaption>A delicious {{ recipe.name }}</figcaption>
 </figure>
 
@@ -38,6 +40,6 @@
   {% endfor %}
 </ul>
 {% if recipe.source_url %}
-<p><a href="{{ recipe.source_url }}">(Source)</a></p>
+<p><a target="_blank" href="{{ recipe.source_url }}">(Source)</a></p>
 {% endif %}
 {% endblock %}

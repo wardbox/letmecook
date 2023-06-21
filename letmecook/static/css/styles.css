@@ -17,17 +17,20 @@ h1 {
     margin: 1rem 0;
     font-weight: bold;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 h2 {
     font-size: 1.1rem;
     margin: 0.5rem 0;
     font-weight: normal;
+    text-transform: uppercase;
 }
 
 h3 {
     font-size: 1.5rem;
     margin: 1rem 0;
+    text-transform: uppercase;
 }
 
 p {
@@ -38,7 +41,6 @@ p {
 main {
     margin: 2rem;
     padding: 1rem;
-    border: 1px solid var(--secondary-color);
 }
 
 header {
@@ -166,16 +168,18 @@ ol li {
 }
 
 .recipe-thumbnail {
-    width: 100px;
     height: 100px;
-    object-fit: cover;
+    width: 100px;
     margin-right: 1rem;
-    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
 }
 
 .recipe-thumbnail img {
-    max-width: 100%;
-    height: auto;
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
 }
 
 .recipe-name {

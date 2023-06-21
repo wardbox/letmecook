@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Recipes</h1>
 <ul class="recipe-list">
     {% for recipe in recipes %}
     <li class="recipe-item">
         <div class="recipe-thumbnail">
+            {% if recipe.image %}
             <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+            {% endif %}
         </div>
         <div class="recipe-details">
             <h3 class="recipe-name"><a href="{% url 'recipes:recipe_detail' recipe.pk %}">{{ recipe.name }}</a></h3>
