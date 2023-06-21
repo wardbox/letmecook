@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ recipe.name }}</h1>
+
+<figure class="recipe-image">
+  <img src="{{ recipe.image.url }}" alt="Image of {{ recipe.name }}">
+  <figcaption>A delicious {{ recipe.name }}</figcaption>
+</figure>
+
+<h2>Ingredients</h2>
+<ul class="ingredients-list">
+  {% for ingredient in recipe.recipe_ingredients.all %}
+  <li class="ingredients-item">
+    {% with ingredient.get_fraction as frac %}
+    {% if frac.2 %}{{ frac.2 }} {% endif %}
+    {% if frac.0 and frac.1 %}
+    <span class="fraction"><sup>{{ frac.0 }}</sup>&frasl;<sub>{{ frac.1 }}</sub></span>
+    {% elif frac.0 %}
+    {{ frac.0 }}
+    {% endif %}
+    {% endwith %}
+    {% if ingredient.get_measurement %}
+    {{ ingredient.get_measurement|lower }}
+    {% endif %}
+    {{ ingredient.ingredient|lower }}
+    {% if ingredient.preparation_type %}
+    {{ ingredient.preparation_type }}
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+<h2>Instructions</h2>
+<ul class="instructions-list">
+  {% for instruction in recipe.instructions.all %}
+  <li class="instructions-item">{{ instruction.step }}</li>
+  {% endfor %}
+</ul>
+{% if recipe.source_url %}
+<p><a href="{{ recipe.source_url }}">(Source)</a></p>
+{% endif %}
+{% endblock %}
