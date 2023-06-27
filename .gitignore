@@ -125,3 +125,4 @@ dmypy.json
 
 # ignore letmecook/media/ folder
 letmecook/media/
+letmecook/static/*

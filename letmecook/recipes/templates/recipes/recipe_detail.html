@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ recipe.name }}</h1>
+<h1 class="recipe-detail-name">{{ recipe.name }}</h1>
 
 <figure class="recipe-image">
+  {% if recipe.image %}
   <img src="{{ recipe.image.url }}" alt="Image of {{ recipe.name }}">
-  <figcaption>A delicious {{ recipe.name }}</figcaption>
+  {% endif %}
+  <figcaption class="text-align-center">A delicious {{ recipe.name }}</figcaption>
 </figure>
 
 <h2>Ingredients</h2>
@@ -38,6 +40,6 @@
   {% endfor %}
 </ul>
 {% if recipe.source_url %}
-<p><a href="{{ recipe.source_url }}">(Source)</a></p>
+<p><a target="_blank" href="{{ recipe.source_url }}">(Source)</a></p>
 {% endif %}
 {% endblock %}

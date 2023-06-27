@@ -3,15 +3,20 @@
 {% load static %}
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <title>{% block title %}let me cook{% endblock %}</title>
+
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/turretcss/dist/turretcss.min.css" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="color-error-50 background-dark-900 font-family-sans-serif">
   <header>
-    <h1>Let Me Cook</h1>
-    <h2>No ads. No backstory. Ever.</h2>
+    <h1 class="display-title display-title-xxl">LET ME COOK</h1>
+    <h2 class="display-title display-title-xl">NO ADS. NO BACKSTORY. <span class="ever">EVER</span>.</h2>
     <nav>
       <a href="{% url 'recipes:home' %}">Home</a>
       <a href="{% url 'about' %}">About</a>
