@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 
-def about(request):
-    return render(request, "about.html")
+def who(request):
+    return render(request, "who.html")
 
 
-def contact(request):
-    return render(request, "contact.html")
+def talk(request):
+    return render(request, "talk.html")
