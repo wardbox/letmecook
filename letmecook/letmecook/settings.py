@@ -24,10 +24,22 @@ MEDIA_URL = "/media/"
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get("DEBUG")) == "1"
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
+ALLOWED_HOSTS = ["*"]
 
 # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(",")
-ALLOWED_HOSTS = ["*"]
+NULLSTONE_PUBLIC_HOSTS = os.environ.get('NULLSTONE_PUBLIC_HOSTS')
+if NULLSTONE_PUBLIC_HOSTS:
+  ALLOWED_HOSTS.append(NULLSTONE_PUBLIC_HOSTS)
+NULLSTONE_PRIVATE_HOSTS = os.environ.get('NULLSTONE_PRIVATE_HOSTS')
+if NULLSTONE_PRIVATE_HOSTS:
+  ALLOWED_HOSTS.append(NULLSTONE_PRIVATE_HOSTS)
+
+ECS_PRIVATE_IPS = os.environ.get('ECS_PRIVATE_IPS')
+if ECS_PRIVATE_IPS:
+  ALLOWED_HOSTS.append(ECS_PRIVATE_IPS)
+
 
 # Application definition
 
