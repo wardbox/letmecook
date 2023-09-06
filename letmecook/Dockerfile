@@ -1,7 +1,11 @@
 FROM python:3.10.0-slim
 
-RUN mkdir /app
+EXPOSE 8000
 WORKDIR /app
-ADD . /app/
-
-RUN pip install -r requirements.txt
+COPY requirements.txt /app
+RUN pip3 install -r requirements.txt --no-cache-dir
+COPY . /app
+ENTRYPOINT ["python3"]
+RUN python3 manage.py makemigrations
+RUN python3 manage.py migrate
+CMD ["manage.py", "runserver", "0.0.0.0:8000"]
