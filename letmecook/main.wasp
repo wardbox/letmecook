@@ -1,0 +1,41 @@
+app letmecook {
+  wasp: {
+    version: "^0.14.0"
+  },
+  title: "letmecook",
+
+  client: {
+    rootComponent: import App from "@src/client/App",
+  },
+
+  auth: {
+    userEntity: User,
+    methods: {
+      discord: {
+        configFn: import { discordAuthConfig } from "@src/server/auth/discord.js",
+        userSignupFields: import { discordUserSignupFields } from "@src/server/auth/discord.js",
+      }
+    },
+    onAuthFailedRedirectTo: "/login",
+  }
+}
+
+route RootRoute { path: "/", to: LandingPage }
+page LandingPage {
+  component: import LandingPage  from "@src/client/app/LandingPage"
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import { LoginPage } from "@src/auth/LoginPage"
+}
+
+route SignupRoute { path: "/signup", to: SignupPage }
+page SignupPage {
+  component: import { SignupPage } from "@src/auth/SignupPage"
+}
+
+query getAllRecipes {
+  fn: import { getAllRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
