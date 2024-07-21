@@ -1,20 +1,14 @@
-import React, { FormEventHandler, FormEvent } from "react";
-import { type AuthUser, getUsername } from "wasp/auth";
-import { logout } from "wasp/client/auth";
+import React from "react";
 import "./Main.css";
 import { ThemeProvider } from "../components/theme-provider";
+// Supports weights 200-800
+import '@fontsource-variable/manrope';
 
 export default function App({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div>
-        <header>
-          <h1 className="text-3xl font-bold underline">letmecook</h1>
-        </header>
+      <div className="h-screen antialiased">
         {children}
-        <footer>
-          <p>footer</p>
-        </footer>
       </div>
     </ThemeProvider>
   )
