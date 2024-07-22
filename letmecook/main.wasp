@@ -18,6 +18,7 @@ app letmecook {
   }
 }
 
+// routes
 route RootRoute { path: "/", to: LandingPage }
 page LandingPage {
   component: import LandingPage  from "@src/client/app/LandingPage"
@@ -33,7 +34,20 @@ page SignupPage {
   component: import { SignupPage } from "@src/auth/SignupPage"
 }
 
+route RecipeRoute { path: "/recipes/:id", to: RecipePage }
+page RecipePage {
+  component: import RecipePage from "@src/components/Recipe/RecipePage"
+}
+
+// queries
 query getAllRecipes {
   fn: import { getAllRecipes } from "@src/server/queries.js",
   entities: [Recipe]
 }
+
+query getRecipe {
+  fn: import { getRecipe } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+// actions

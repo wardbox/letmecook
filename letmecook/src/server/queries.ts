@@ -1,10 +1,8 @@
 import { HttpError } from "wasp/server";
-import {
-  type Recipe,
-} from "wasp/entities"
 
 import {
   type GetAllRecipes,
+  type GetRecipe,
 } from "wasp/server/operations"
 
 
@@ -15,3 +13,21 @@ export const getAllRecipes = (async (_args, context) => {
   })
   return recipes;
 }) satisfies GetAllRecipes
+
+export const getRecipe = (async ({ recipeId }, context) => {
+  const recipe = await context.entities.Recipe.findUnique({
+    where: { id: recipeId },
+    include: {
+      author: true,
+      ingredients: true,
+      steps: true,
+      tags: true,
+    },
+  })
+
+  if (!recipe) {
+    throw new HttpError(404, `Recipe with id ${recipeId} not found`);
+  }
+
+  return recipe;
+}) satisfies GetRecipe

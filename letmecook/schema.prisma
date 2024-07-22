@@ -16,19 +16,23 @@ model User {
 }
 
 model Recipe {
-  id            String    @id @default(uuid())
-  title         String    @default("")
+  id            String       @id @default(uuid())
+  title         String       @default("")
   ingredients   Ingredient[]
   steps         Step[]
-  author        User      @relation(fields: [authorId], references: [id])
+  author        User         @relation(fields: [authorId], references: [id])
   authorId      String
-  notes         String?   @default("")
-  upvotes       Int       @default(0)
-  downvotes     Int       @default(0)
+  notes         String?      @default("")
+  upvotes       Int          @default(0)
+  downvotes     Int          @default(0)
+  featured      Boolean      @default(false)
+  prepTime      Int          @default(0)
+  cookTime      Int          @default(0)
+  servings      Int          @default(0)
   tags          Tag[]
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model Ingredient {
@@ -49,7 +53,7 @@ model Step {
 }
 
 model Tag {
-    id            String    @id @default(uuid())
-    name          String
-    recipes       Recipe[]
+  id            String    @id @default(uuid())
+  name          String
+  recipes       Recipe[]
 }

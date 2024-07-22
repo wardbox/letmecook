@@ -3,7 +3,7 @@ import React from "react";
 export default function LandingPage() {
   return (
     <div className="h-full max-w-3xl mx-auto p-3 flex flex-col gap-5 text-balance">
-      <section id="document-title" className="p-3 items-center">
+      <section id="document-title" className="p-3">
         <hgroup>
           <h1 className="text-6xl font-bold">letmecook</h1>
           <p className="text-2xl subtitle font-light text-muted-foreground">A clean and simple cookbook with 100% good recipes.</p>
@@ -13,7 +13,7 @@ export default function LandingPage() {
         {features.map((feature) => (
           <div key={feature.title}>
             <h2 className="text-3xl font-bold">{feature.title}</h2>
-            <p className="text-md text-muted-foreground">{feature.description}</p>
+            <p className="text-muted-foreground">{feature.description}</p>
           </div>
         ))}
       </section>

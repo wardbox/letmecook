@@ -1,7 +1,9 @@
 {
   "name": "letmecook",
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
