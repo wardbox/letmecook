@@ -1,23 +1,19 @@
 import React from "react";
-import { Card, CardTitle, CardDescription, CardHeader, CardContent } from "../../components/ui/card"
-import logomark from "../static/logomark.svg"
-import { Button } from "../../components/ui/button";
 
 export default function LandingPage() {
   return (
     <div className="h-full max-w-3xl mx-auto p-3 flex flex-col gap-5 text-balance">
-      <section className="p-3 items-center">
-        <div className="flex">
+      <section id="document-title" className="p-3 items-center">
+        <hgroup>
           <h1 className="text-6xl font-bold">letmecook</h1>
-        </div>
-        <h2 className="text-3xl">A clean and simple cookbook with 100% good recipes.</h2>
+          <p className="text-2xl subtitle font-light text-muted-foreground">A clean and simple cookbook with 100% good recipes.</p>
+        </hgroup>
       </section>
       <section id="features" className="mt-12 p-3 flex flex-col gap-5">
-        {/* <h2 className="text-4xl font-bold justify-center">Features</h2> */}
         {features.map((feature) => (
-          <div>
-            <h2 className="text-2xl">{feature.title}</h2>
-            <p className="text-sm text-muted-foreground">{feature.description}</p>
+          <div key={feature.title}>
+            <h2 className="text-3xl font-bold">{feature.title}</h2>
+            <p className="text-md text-muted-foreground">{feature.description}</p>
           </div>
         ))}
       </section>

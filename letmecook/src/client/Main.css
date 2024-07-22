@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url(/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf);
 
 @layer base {
   :root {
@@ -68,12 +69,30 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  @font-face {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-display: swap;
+    src: url(../public/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-display: swap;
+    src: url(../public/fonts/Manrope/Manrope-VariableFont_wght.ttf) format('truetype');
+  }
+}
+
+h1, h2, h3 {
+  font-family: 'Manrope', sans-serif;
 }
 
 body {
-  font-family: 'Manrope Variable', sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
 
-p {
-  font-family: 'Roboto Slab', serif;
+.subtitle {
+  font-family: 'Manrope', sans-serif;
 }

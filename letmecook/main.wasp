@@ -3,11 +3,9 @@ app letmecook {
     version: "^0.14.0"
   },
   title: "letmecook",
-
   client: {
     rootComponent: import App from "@src/client/App",
   },
-
   auth: {
     userEntity: User,
     methods: {
