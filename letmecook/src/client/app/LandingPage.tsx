@@ -10,20 +10,15 @@ export default function LandingPage() {
         <div className="flex">
           <h1 className="text-6xl font-bold">letmecook</h1>
         </div>
-        <p className="text-sm text-muted-foreground">A clean and simple recipe website with 100% good recipes.</p>
+        <h2 className="text-3xl">A clean and simple cookbook with 100% good recipes.</h2>
       </section>
-      <img src={logomark} alt="letmecook logomark" className="h-48 justify-center" />
-      <section id="features" className="p-3 flex flex-col gap-5">
-        <h2 className="text-4xl font-bold justify-center">Features</h2>
+      <section id="features" className="mt-12 p-3 flex flex-col gap-5">
+        {/* <h2 className="text-4xl font-bold justify-center">Features</h2> */}
         {features.map((feature) => (
-          <Card key={feature.title}>
-            <CardHeader>
-              <CardTitle>{feature.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>{feature.description}</CardDescription>
-            </CardContent>
-          </Card>
+          <div>
+            <h2 className="text-2xl">{feature.title}</h2>
+            <p className="text-sm text-muted-foreground">{feature.description}</p>
+          </div>
         ))}
       </section>
     </div>
