@@ -55,4 +55,9 @@ query getRecipe {
   entities: [Recipe]
 }
 
+query getFeaturedRecipes {
+  fn: import { getFeaturedRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
 // actions

@@ -12,7 +12,7 @@ export default function App({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Nav />
-      <main id="root" className="h-screen antialiased m-5">
+      <main id="root" className="h-full antialiased m-5">
         {children}
       </main>
       <Toaster />

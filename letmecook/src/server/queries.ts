@@ -1,6 +1,10 @@
 import { HttpError } from "wasp/server";
 
-import { type GetAllRecipes, type GetRecipe } from "wasp/server/operations";
+import {
+  type GetAllRecipes,
+  type GetRecipe,
+  type GetFeaturedRecipes,
+} from "wasp/server/operations";
 
 export const getAllRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
@@ -9,6 +13,17 @@ export const getAllRecipes = (async (_args, context) => {
   });
   return recipes;
 }) satisfies GetAllRecipes;
+
+export const getFeaturedRecipes = (async (_args, context) => {
+  const recipes = await context.entities.Recipe.findMany({
+    include: {
+      author: true,
+    },
+    orderBy: { upvotes: "desc" },
+    take: 3,
+  });
+  return recipes;
+}) satisfies GetFeaturedRecipes;
 
 export const getRecipe = (async ({ recipeId }, context) => {
   const recipe = await context.entities.Recipe.findUnique({

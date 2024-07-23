@@ -2,9 +2,9 @@ import { RouteComponentProps } from "react-router-dom";
 import { useQuery, getRecipe } from "wasp/client/operations";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { ArrowUp, ArrowDown, Printer, Share } from "@phosphor-icons/react";
-import { toast, useToast } from "../../components/ui/use-toast"
-
+import { Printer, Share } from "@phosphor-icons/react";
+import { toast } from "../../components/ui/use-toast"
+import Votes from "./Votes";
 
 export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   const { data, error, isLoading } = useQuery(getRecipe, { recipeId: props.match.params.id });
@@ -28,17 +28,14 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   }
 
   return (
-    <div className="h-full max-w-4xl mx-auto p-8">
+    <div className="h-full max-w-3xl mx-auto p-3 my-16">
       {data && (
-        <div className="flex flex-col gap-12 text-balance my-8">
+        <div className="flex flex-col gap-12 text-balance">
           <section id="heading" className="p-3">
             <hgroup className="flex flex-col gap-5">
               <h1 className="text-6xl font-bold">{data.title}</h1>
               <div className="flex gap-8 items-center printhide">
-                <div className="flex gap-3">
-                  <Button size="sm" variant="secondary" className="hover:bg-primary hover:text-primary-foreground">{data.upvotes}<ArrowUp size={16} /></Button>
-                  <Button size="sm" variant="secondary" className="hover:bg-destructive hover:text-destructive-foreground">{data.downvotes}<ArrowDown size={16} /></Button>
-                </div>
+                <Votes upvotes={data.upvotes} downvotes={data.downvotes} />
                 <div className="flex gap-3">
                   <Button size="sm" variant="secondary" onClick={handlePrintRecipe}><Printer size={24} /></Button>
                   <Button size="sm" variant="secondary" onClick={handleClickShare}><Share size={24} /></Button>
@@ -74,7 +71,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
           </section>
           <section id="steps" className="flex flex-col gap-3">
             <h2 className="text-3xl font-bold">Steps</h2>
-            <ol className="list-inside flex flex-col gap-3">
+            <ol className="list-decimal list-inside flex flex-col gap-3">
               {data.steps.map((step) => (
                 <li key={step.id}>{step.description}</li>
               ))}
@@ -89,19 +86,6 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
       }
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-    </div >
+    </div>
   )
 }
-
-// title of recipe
-// upvotes and downvotes count
-// a photo at least, otherwise a carousel
-// tags (#meat, #vegetarian)
-// a print button that is customizable to remove photos - maybe
-// a share button - maybe
-// cook times
-// servings
-// ingredients
-// steps
-// notes
-

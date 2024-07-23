@@ -102,3 +102,7 @@ body {
   color: white;
   transition-duration: 300ms;
 }
+
+ol li::marker {
+  font-size: x-large;
+}

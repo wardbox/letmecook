@@ -2,7 +2,7 @@ import { Link } from "wasp/client/router"
 import { Button } from "./button"
 import { Input } from "./input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "./dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "./sheet"
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./sheet"
 import { Hamburger, MagnifyingGlass, User } from "@phosphor-icons/react"
 import logomark from "../../client/static/logomark.svg"
 import { useAuth, logout } from 'wasp/client/auth'
@@ -12,13 +12,13 @@ export const Nav = () => {
   const { data: user } = useAuth()
 
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="static top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           to="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <img src={logomark} alt="letmecook" className="h-12" />
+          <img src={logomark} alt="letmecook logomark" className="h-16" />
           <span className="sr-only">letmecook</span>
         </Link>
         <Link
@@ -35,7 +35,7 @@ export const Nav = () => {
         </Link>
       </nav>
       <Sheet>
-        <SheetTrigger asChild>
+        <SheetTrigger asChild title="nav bar">
           <Button
             variant="outline"
             size="icon"
@@ -45,13 +45,15 @@ export const Nav = () => {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left">
+        <SheetContent side="left" className="flex flex-col">
+          <img src={logomark} alt="letmecook-mobile-logomark" className="h-12" />
+          <SheetTitle>letmecook</SheetTitle>
+          <SheetDescription>A clean and simple cookbook with 100% good recipes.</SheetDescription>
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               to="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <img src={logomark} alt="letmecook" className="h-12" />
               <span className="sr-only">letmecook</span>
             </Link>
             <Link
@@ -95,7 +97,7 @@ export const Nav = () => {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem> */}
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={logout} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           ) : (
             <DropdownMenuContent align="end">
