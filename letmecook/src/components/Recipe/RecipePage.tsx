@@ -28,26 +28,26 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   }
 
   return (
-    <div className="h-full max-w-3xl mx-auto p-8">
+    <div className="h-full max-w-4xl mx-auto p-8">
       {data && (
         <div className="flex flex-col gap-12 text-balance my-8">
           <section id="heading" className="p-3">
             <hgroup className="flex flex-col gap-5">
               <h1 className="text-6xl font-bold">{data.title}</h1>
+              <div className="flex gap-8 items-center printhide">
+                <div className="flex gap-3">
+                  <Button size="sm" variant="secondary" className="hover:bg-primary hover:text-primary-foreground">{data.upvotes}<ArrowUp size={16} /></Button>
+                  <Button size="sm" variant="secondary" className="hover:bg-destructive hover:text-destructive-foreground">{data.downvotes}<ArrowDown size={16} /></Button>
+                </div>
+                <div className="flex gap-3">
+                  <Button size="sm" variant="secondary" onClick={handlePrintRecipe}><Printer size={24} /></Button>
+                  <Button size="sm" variant="secondary" onClick={handleClickShare}><Share size={24} /></Button>
+                </div>
+              </div>
               <div className="flex flex-wrap gap-2 printhide">
                 {data.tags.map((tag) => (
                   <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
                 ))}
-              </div>
-              <div className="flex gap-2 items-center justify-between printhide">
-                <div className="flex gap-3">
-                  <Button>{data.upvotes}<ArrowUp size={16} /></Button>
-                  <Button variant="secondary">{data.downvotes}<ArrowDown size={16} /></Button>
-                </div>
-                <div className="flex gap-3">
-                  <Button onClick={handlePrintRecipe}><Printer size={24} /></Button>
-                  <Button onClick={handleClickShare}><Share size={24} /></Button>
-                </div>
               </div>
             </hgroup>
           </section>
@@ -74,7 +74,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
           </section>
           <section id="steps" className="flex flex-col gap-3">
             <h2 className="text-3xl font-bold">Steps</h2>
-            <ol className="list-decimal list-inside flex flex-col gap-3">
+            <ol className="list-inside flex flex-col gap-3">
               {data.steps.map((step) => (
                 <li key={step.id}>{step.description}</li>
               ))}

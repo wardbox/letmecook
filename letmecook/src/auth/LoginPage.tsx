@@ -4,15 +4,12 @@ import { Link } from "wasp/client/router";
 
 export function LoginPage() {
   return (
-    <main>
-      {/** Wasp has built-in auth forms & flows, which you can customize or opt-out of, if you wish :)
-       * https://wasp-lang.dev/docs/guides/auth-ui
-       */}
+    <div className="login h-full max-w-lg mx-auto p-8">
       <LoginForm />
       <br />
       <span>
         I don't have an account yet (<Link to="/signup">go to signup</Link>).
       </span>
-    </main>
+    </div>
   );
 }

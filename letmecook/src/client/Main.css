@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 20 14% 93%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -84,18 +84,21 @@
   }
 }
 
-h1, h2, h3 {
-  font-family: 'Manrope', sans-serif;
-}
-
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Manrope', sans-serif
 }
 
-.subtitle {
-  font-family: 'Manrope', sans-serif;
+.login svg {
+  fill: var(--foreground);
 }
 
-h2 {
-  font-size: var(--text-3xl);
+.login a {
+  @apply text-primary;
+  text-decoration: underline;
+  transition-duration: 300ms;
+}
+
+.login a:hover {
+  color: white;
+  transition-duration: 300ms;
 }

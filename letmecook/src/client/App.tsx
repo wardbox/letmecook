@@ -6,10 +6,13 @@ import {
   Toaster
 
 } from "../components/ui/toaster";
+import { Nav } from "../components/ui/nav";
+
 export default function App({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <main id="root" className="h-screen antialiased">
+      <Nav />
+      <main id="root" className="h-screen antialiased m-5">
         {children}
       </main>
       <Toaster />
