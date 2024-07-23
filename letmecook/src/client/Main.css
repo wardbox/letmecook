@@ -1,11 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url(/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf);
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 20 14% 93%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -74,25 +73,36 @@
     font-family: 'Roboto Slab';
     font-style: normal;
     font-display: swap;
-    src: url(../public/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf) format('truetype');
+    src: url(/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf) format('truetype');
   }
 
   @font-face {
     font-family: 'Manrope';
     font-style: normal;
     font-display: swap;
-    src: url(../public/fonts/Manrope/Manrope-VariableFont_wght.ttf) format('truetype');
+    src: url(/fonts/Manrope/Manrope-VariableFont_wght.ttf) format('truetype');
   }
 }
 
-h1, h2, h3 {
-  font-family: 'Manrope', sans-serif;
-}
-
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Manrope', sans-serif
 }
 
-.subtitle {
-  font-family: 'Manrope', sans-serif;
+.login svg {
+  fill: var(--foreground);
+}
+
+.login a {
+  @apply text-primary;
+  text-decoration: underline;
+  transition-duration: 300ms;
+}
+
+.login a:hover {
+  color: white;
+  transition-duration: 300ms;
+}
+
+ol li::marker {
+  font-size: x-large;
 }
