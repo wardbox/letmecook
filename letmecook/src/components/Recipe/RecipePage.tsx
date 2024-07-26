@@ -49,7 +49,11 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
             </hgroup>
           </section>
           <section id="photos" className="printhide">
-            <img className="rounded-sm" src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2022%2F11%2F15%2F6777730-chicken-noodle-salad-Chef-John-1x1-1.jpg&q=60&c=sc&poi=auto&orient=true&h=512" alt="photo of food" />
+            {data.imageUrl ? (
+              <img className="rounded-md w-full" src={data.imageUrl} alt="photo of food" />
+            ) : (
+              <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+            )}
           </section>
           <hr className="printhide" />
           <section id="logistics" className="flex flex-col gap-3 max-w-max">

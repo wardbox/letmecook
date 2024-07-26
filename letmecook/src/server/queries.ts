@@ -8,9 +8,12 @@ import {
 
 export const getAllRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
-    include: { steps: true, ingredients: true },
-    orderBy: { updatedAt: "desc" },
+    include: {
+      author: true, ingredients: true, steps: true, tags: true,
+    },
+    orderBy: { title: "asc" },
   });
+
   return recipes;
 }) satisfies GetAllRecipes;
 
