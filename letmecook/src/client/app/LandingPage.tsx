@@ -11,6 +11,7 @@ export default function LandingPage() {
         </hgroup>
       </section>
       <section id="featured-recipe" className="flex flex-col gap-3">
+        <h2 className="text-2xl sm:text-3xl font-bold">Featured Recipe</h2>
         <FeaturedRecipes />
       </section>
       <section id="features" className="p-3 flex flex-col gap-5">

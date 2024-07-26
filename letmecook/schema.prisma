@@ -8,52 +8,53 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  username      String    @unique
-  email         String    @default("")
-  avatarUrl     String?   @default("")
-  recipes       Recipe[]
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @default("")
+  avatarUrl String?  @default("")
+  recipes   Recipe[]
 }
 
 model Recipe {
-  id            String       @id @default(uuid())
-  title         String       @default("")
-  ingredients   Ingredient[]
-  steps         Step[]
-  author        User         @relation(fields: [authorId], references: [id])
-  authorId      String
-  notes         String?      @default("")
-  upvotes       Int          @default(0)
-  downvotes     Int          @default(0)
-  featured      Boolean      @default(false)
-  prepTime      Int          @default(0)
-  cookTime      Int          @default(0)
-  servings      Int          @default(0)
-  tags          Tag[]
+  id          String       @id @default(uuid())
+  title       String       @default("")
+  ingredients Ingredient[]
+  steps       Step[]
+  author      User         @relation(fields: [authorId], references: [id])
+  authorId    String
+  imageUrl    String?      @default("")
+  notes       String?      @default("")
+  upvotes     Int          @default(0)
+  downvotes   Int          @default(0)
+  featured    Boolean      @default(false)
+  prepTime    Int          @default(0)
+  cookTime    Int          @default(0)
+  servings    Int          @default(0)
+  tags        Tag[]
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Ingredient {
-  id            String    @id @default(uuid())
-  name          String
-  amount        String
-  measurement   String
-  recipe        Recipe    @relation(fields: [recipeId], references: [id])
-  recipeId      String
+  id          String @id @default(uuid())
+  name        String
+  amount      String
+  measurement String
+  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipeId    String
 }
 
 model Step {
-  id            String    @id @default(uuid())
-  order         Int
-  description   String
-  recipe        Recipe    @relation(fields: [recipeId], references: [id])
-  recipeId      String
+  id          String @id @default(uuid())
+  order       Int
+  description String
+  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipeId    String
 }
 
 model Tag {
-  id            String    @id @default(uuid())
-  name          String
-  recipes       Recipe[]
+  id      String   @id @default(uuid())
+  name    String
+  recipes Recipe[]
 }
