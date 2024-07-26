@@ -10,7 +10,7 @@ export function RecipeCard({ recipe, setAuthor }: {
 }) {
 
   const handleAuthorClick = () => {
-    setAuthor(recipe.authorId);
+    setAuthor(recipe.author);
   }
 
   return (
