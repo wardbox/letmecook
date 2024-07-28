@@ -99,9 +99,10 @@ export const Nav = () => {
           {user ? (
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              {/* <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem> */}
+              <DropdownMenuSeparator />
+              <Link to="/submit">
+                <DropdownMenuItem className="cursor-pointer">Submit a recipe</DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logout} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>

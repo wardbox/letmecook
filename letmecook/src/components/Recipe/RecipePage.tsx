@@ -5,10 +5,22 @@ import { Badge } from "../ui/badge";
 import { Printer, Share } from "@phosphor-icons/react";
 import { toast } from "../../components/ui/use-toast"
 import Votes from "./Votes";
+import { getDownloadFileSignedURL } from 'wasp/client/operations';
+import { useEffect, useState } from "react";
 
 export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   const { data, error, isLoading } = useQuery(getRecipe, { recipeId: props.match.params.id });
   const url = location.href;
+
+  const [photo, setPhoto] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (data && data.photo) {
+      getDownloadFileSignedURL({ key: data.photo.key }).then((url) => {
+        setPhoto(url);
+      });
+    }
+  }, [data]);
 
   const handleClickShare = () => {
     try {
@@ -34,6 +46,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
           <section id="heading" className="p-3">
             <hgroup className="flex flex-col gap-5">
               <h1 className="text-6xl font-bold">{data.title}</h1>
+              <p className="text-muted-foreground">by {data.author.username}</p>
               <div className="flex gap-8 items-center printhide">
                 <Votes upvotes={data.upvotes} downvotes={data.downvotes} />
                 <div className="flex gap-3">
@@ -49,8 +62,8 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
             </hgroup>
           </section>
           <section id="photos" className="printhide">
-            {data.imageUrl ? (
-              <img className="rounded-md w-full" src={data.imageUrl} alt="photo of food" />
+            {photo ? (
+              <img className="rounded-md w-full" src={photo} alt={`photo of ${data.title}`} />
             ) : (
               <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
             )}

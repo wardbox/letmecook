@@ -42,7 +42,7 @@ model Ingredient {
   name        String
   amount      String
   measurement String
-  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId    String
 }
 
@@ -50,7 +50,7 @@ model Step {
   id          String @id @default(uuid())
   order       Int
   description String
-  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId    String
 }
 
@@ -66,7 +66,7 @@ model File {
   type      String
   key       String
   uploadUrl String
-  recipe    Recipe?  @relation(fields: [recipeId], references: [id])
+  recipe    Recipe?  @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId  String?  @unique
   
   createdAt DateTime @default(now())

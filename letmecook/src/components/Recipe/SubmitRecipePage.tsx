@@ -16,6 +16,8 @@ import { createFile, createRecipe } from "wasp/client/operations";
 import axios from 'axios';
 import { X } from "@phosphor-icons/react";
 import { Textarea } from "../ui/textarea";
+import { useHistory } from "react-router-dom";
+import { useToast } from "../ui/use-toast";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -36,9 +38,9 @@ const recipeFormSchema = z.object({
     if (file.size > MAX_FILE_SIZE) return false;
     return checkFileType(file);
   }),
-  prepTime: z.coerce.number().min(1),
-  cookTime: z.coerce.number().min(1),
-  servings: z.coerce.number().min(1),
+  prepTime: z.coerce.number().min(1, { message: "Prep time is required" }),
+  cookTime: z.coerce.number().min(1, { message: "Cook time is required" }),
+  servings: z.coerce.number().min(1, { message: "Servings is required" }),
   ingredients: z
     .array(
       z.object({
@@ -50,8 +52,8 @@ const recipeFormSchema = z.object({
             (value) =>
               ["c", "tsp", "tbsp", "oz", "lb", "g", "kg", "ml", "l", "fl oz", "gal", "pt", "qt"].includes(value.toLowerCase()), {
             message: "Invalid measurement",
-          })
-      }),
+          }),
+      }, { message: "test" }),
     ).min(1, { message: "At least one ingredient is required" }),
   steps: z.array(z.object({
     order: z.number().min(1, { message: "Order is required" }),
@@ -61,6 +63,8 @@ const recipeFormSchema = z.object({
 })
 
 export default function SubmitRecipePage() {
+  const { toast } = useToast()
+  const history = useHistory();
   const form = useForm<z.infer<typeof recipeFormSchema>>({
     resolver: zodResolver(recipeFormSchema),
     defaultValues: {
@@ -90,15 +94,19 @@ export default function SubmitRecipePage() {
 
   async function onSubmit(values: z.infer<typeof recipeFormSchema>) {
     try {
-      console.log(values)
-
       if (values.ingredients.some((ingredient) => !ingredient.name || !ingredient.amount || !ingredient.measurement)) {
-        console.error('All ingredient fields are required');
+        toast({
+          title: 'Error',
+          description: 'Empty ingredients are not allowed',
+        })
         return;
       }
 
       if (values.steps.some((step) => !step.order || !step.description)) {
-        console.error('All step fields are required');
+        toast({
+          title: 'Error',
+          description: 'Empty steps are not allowed',
+        })
         return;
       }
 
@@ -126,7 +134,16 @@ export default function SubmitRecipePage() {
       });
 
       if (res.status !== 200) {
-        console.error('Failed to upload file to S3')
+        toast({
+          title: 'Error',
+          description: 'Failed to upload photo',
+        })
+      } else {
+        toast({
+          title: 'Success',
+          description: 'Recipe submitted successfully',
+        })
+        history.push(`/recipes/${createdRecipe.id}`);
       }
     } catch (error) {
       console.error(error);
@@ -143,7 +160,7 @@ export default function SubmitRecipePage() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel className="text-2xl">Title</FormLabel>
                   <FormControl>
                     <Input type="text" placeholder="My great recipe" {...field} />
                   </FormControl>
@@ -159,7 +176,7 @@ export default function SubmitRecipePage() {
               name="photo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Photo</FormLabel>
+                  <FormLabel className="text-2xl">Photo</FormLabel>
                   <FormControl>
                     <Input type="file" {...fileRef} />
                   </FormControl>
@@ -176,7 +193,7 @@ export default function SubmitRecipePage() {
                 name="prepTime"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Prep time</FormLabel>
+                    <FormLabel className="text-2xl">Prep time</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} />
                     </FormControl>
@@ -192,7 +209,7 @@ export default function SubmitRecipePage() {
                 name="cookTime"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cook time</FormLabel>
+                    <FormLabel className="text-2xl">Cook time</FormLabel>
                     <FormControl>
                       <Input type="number" step={1} placeholder="1" {...field} />
                     </FormControl>
@@ -209,7 +226,7 @@ export default function SubmitRecipePage() {
               name="servings"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Servings</FormLabel>
+                  <FormLabel className="text-2xl">Servings</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="1" {...field} />
                   </FormControl>
@@ -225,9 +242,9 @@ export default function SubmitRecipePage() {
               name="ingredients"
               render={() => (
                 <FormItem>
-                  <FormLabel>Ingredients</FormLabel>
+                  <FormLabel className="text-2xl">Ingredients</FormLabel>
                   {ingredientFields.map((field, index) => (
-                    <div key={field.id} className="grid grid-cols-3 gap-3">
+                    <div key={field.id} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <Controller
                         control={control}
                         name={`ingredients.${index}.name`}
@@ -301,19 +318,19 @@ export default function SubmitRecipePage() {
               name="steps"
               render={() => (
                 <FormItem>
-                  <FormLabel>Steps</FormLabel>
+                  <FormLabel className="text-2xl">Steps</FormLabel>
                   {stepFields.map((field, index) => (
-                    <div key={field.id} className="grid grid-cols-2 gap-3">
+                    <div key={field.id} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <Controller
                         control={control}
                         name={`steps.${index}.order`}
                         render={({ field }) => (
                           <FormControl>
                             <Input
-                              type="number"
+                              type="string"
                               placeholder={`${index + 1}`}
                               disabled
-                              {...field}
+                              value={index + 1}
                             />
                           </FormControl>
                         )}
@@ -332,7 +349,7 @@ export default function SubmitRecipePage() {
                             </FormControl>
                           )}
                         />
-                        <Button
+                        {index !== 0 && <Button
                           type="button"
                           variant="destructive"
                           size="sm"
@@ -343,6 +360,7 @@ export default function SubmitRecipePage() {
                         >
                           <X />
                         </Button>
+                        }
                       </div>
                     </div>
                   ))}
@@ -352,7 +370,7 @@ export default function SubmitRecipePage() {
                       appendStep({ order: stepFields[stepFields.length - 1].order + 1, description: "" })
                     }
                   >
-                    Add Ingredient
+                    Add Step
                   </Button>
                   <FormDescription>
                     Steps for the recipe
@@ -366,7 +384,7 @@ export default function SubmitRecipePage() {
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes</FormLabel>
+                  <FormLabel className="text-2xl">Notes</FormLabel>
                   <FormControl>
                     <Textarea placeholder="e.g. This recipe is great for breakfast" {...field} />
                   </FormControl>
