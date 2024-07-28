@@ -1,9 +1,8 @@
 import { Link } from "wasp/client/router"
-import { Button } from "./button"
-import { Input } from "./input"
+import { Button, buttonVariants } from "./button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "./dropdown-menu"
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./sheet"
-import { Hamburger, MagnifyingGlass, User } from "@phosphor-icons/react"
+import { ChefHat, Hamburger, Plus, User } from "@phosphor-icons/react"
 import logomark from "../../client/static/logomark.svg"
 import { useAuth, logout } from 'wasp/client/auth'
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
@@ -82,6 +81,9 @@ export const Nav = () => {
             />
           </div>
         </form> */}
+        <Link to="/submit" className={buttonVariants({ variant: "default" })}>
+          Submit a recipe
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
@@ -99,10 +101,6 @@ export const Nav = () => {
           {user ? (
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <Link to="/submit">
-                <DropdownMenuItem className="cursor-pointer">Submit a recipe</DropdownMenuItem>
-              </Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logout} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
