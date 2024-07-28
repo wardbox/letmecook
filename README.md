@@ -2,6 +2,12 @@
 
 
 ## TODOS
+
+photos for recipe
+- upload to s3
+- presigned urls
+
+
 submit recipe
 - fairly simple but strict guidelines similar to building codes for happy city
 - picture required, high quality (some res + stylistic)

@@ -30,6 +30,7 @@ model Recipe {
   prepTime    Int          @default(0)
   cookTime    Int          @default(0)
   servings    Int          @default(0)
+  photo       File?
   tags        Tag[]
 
   createdAt DateTime @default(now())
@@ -57,4 +58,16 @@ model Tag {
   id      String   @id @default(uuid())
   name    String
   recipes Recipe[]
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  type      String
+  key       String
+  uploadUrl String
+  recipe    Recipe?  @relation(fields: [recipeId], references: [id])
+  recipeId  String?  @unique
+  
+  createdAt DateTime @default(now())
 }
