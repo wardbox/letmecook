@@ -3,21 +3,21 @@
 
 ## TODOS
 submit recipe
+- have some guidelines on the submission page
+- picture high quality (some res + stylistic)
 - fairly simple but strict guidelines similar to building codes for happy city
-- picture required, high quality (some res + stylistic)
-- require all cook/prep/servings
-- measurement validation
+- mark as pending and don't display publicly
 
 admin portal
-  - view list of submitted recipes
-  - mark in review
-  - mark reviewed and tested
+- view list of submitted recipes
+- mark in review
+- mark reviewed and tested
 
 user profile page
-  - see submitted and status
-  - see stats like votes and makes
-  - saved/collection
-  
+- see submitted and status
+- see stats like votes and makes
+- saved/collection
+
 functional voting
 - add vote model
 - figure out limiting upvote/downvote to 1 per person per recipe
@@ -47,3 +47,12 @@ recipes page
   - by author
   - by title
   - by ingredient
+
+photos for recipe
+- upload to s3
+- presigned urls
+
+
+submit recipe
+- require all cook/prep/servings
+- measurement validation

@@ -9,7 +9,11 @@ import {
 export const getAllRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
     include: {
-      author: true, ingredients: true, steps: true, tags: true,
+      author: true,
+      ingredients: true,
+      photo: true,
+      steps: true,
+      tags: true,
     },
     orderBy: { title: "asc" },
   });
@@ -19,8 +23,10 @@ export const getAllRecipes = (async (_args, context) => {
 
 export const getFeaturedRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
+    where: { featured: true },
     include: {
       author: true,
+      photo: true,
     },
     orderBy: { upvotes: "desc" },
     take: 3,
@@ -34,6 +40,7 @@ export const getRecipe = (async ({ recipeId }, context) => {
     include: {
       author: true,
       ingredients: true,
+      photo: true,
       steps: {
         orderBy: { order: "asc" },
       },

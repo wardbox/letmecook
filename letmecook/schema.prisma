@@ -30,6 +30,7 @@ model Recipe {
   prepTime    Int          @default(0)
   cookTime    Int          @default(0)
   servings    Int          @default(0)
+  photo       File?
   tags        Tag[]
 
   createdAt DateTime @default(now())
@@ -41,7 +42,7 @@ model Ingredient {
   name        String
   amount      String
   measurement String
-  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId    String
 }
 
@@ -49,7 +50,7 @@ model Step {
   id          String @id @default(uuid())
   order       Int
   description String
-  recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipe      Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId    String
 }
 
@@ -57,4 +58,16 @@ model Tag {
   id      String   @id @default(uuid())
   name    String
   recipes Recipe[]
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  type      String
+  key       String
+  uploadUrl String
+  recipe    Recipe?  @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  recipeId  String?  @unique
+  
+  createdAt DateTime @default(now())
 }

@@ -44,6 +44,12 @@ page AllRecipesPage {
   component: import AllRecipesPage from "@src/components/Recipe/AllRecipesPage"
 }
 
+route SubmitRecipeRoute { path: "/submit", to: SubmitRecipePage }
+page SubmitRecipePage {
+  authRequired: true,
+  component: import SubmitRecipePage from "@src/components/Recipe/SubmitRecipePage"
+}
+
 // queries
 query getAllRecipes {
   fn: import { getAllRecipes } from "@src/server/queries.js",
@@ -60,4 +66,18 @@ query getFeaturedRecipes {
   entities: [Recipe]
 }
 
+query getDownloadFileSignedURL {
+  fn: import { getDownloadFileSignedURL } from "@src/file-upload/operations",
+  entities: [User, File]
+}
+
 // actions
+action createFile {
+  fn: import { createFile } from "@src/file-upload/operations",
+  entities: [User, File]
+}
+
+action createRecipe {
+  fn: import { createRecipe } from "@src/server/actions.js",
+  entities: [User, Recipe, Tag, Ingredient, Step]
+}

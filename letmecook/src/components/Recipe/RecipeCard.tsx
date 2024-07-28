@@ -3,11 +3,22 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Votes from "./Votes";
 import { Button } from "../ui/button";
 import { AllRecipesPageProps } from "./AllRecipesPage";
+import { getDownloadFileSignedURL } from 'wasp/client/operations';
+import { useEffect, useState } from "react";
 
 export function RecipeCard({ recipe, setAuthor }: {
   recipe: AllRecipesPageProps["recipes"][0],
   setAuthor: Function
 }) {
+  const [photo, setPhoto] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (recipe.photo) {
+      getDownloadFileSignedURL({ key: recipe.photo.key }).then((url) => {
+        setPhoto(url);
+      });
+    }
+  }, [recipe.photo]);
 
   const handleAuthorClick = () => {
     setAuthor(recipe.author);
@@ -22,7 +33,11 @@ export function RecipeCard({ recipe, setAuthor }: {
         <CardDescription onClick={handleAuthorClick} className="underline cursor-pointer">by {recipe.author.username}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        <img className="object-cover rounded-md w-full h-[256px]" src={recipe.imageUrl || ""} alt={`photo of ${recipe.title}`} />
+        {photo ? (
+          <img className="object-cover rounded-md w-full h-[256px]" src={photo} alt={`photo of ${recipe.title}`} />
+        ) : (
+          <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        )}
       </CardContent>
       <CardFooter className="sm:p-5 flex justify-between items-center">
         <Votes upvotes={recipe.upvotes} downvotes={recipe.downvotes} />
