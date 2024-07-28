@@ -1,13 +1,25 @@
 import { HttpError } from "wasp/server";
 
 import {
+  type GetAllPublishedRecipes,
   type GetAllRecipes,
-  type GetRecipe,
+  type GetDeniedRecipes,
   type GetFeaturedRecipes,
+  type GetInReviewRecipes,
+  type GetPendingRecipes,
+  type GetRecipe,
 } from "wasp/server/operations";
 
-export const getAllRecipes = (async (_args, context) => {
+export const getAllPublishedRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
+    where: {
+      AND: {
+        published: true,
+        pending: false,
+        inReview: false,
+        denied: false,
+      },
+    },
     include: {
       author: true,
       ingredients: true,
@@ -19,11 +31,38 @@ export const getAllRecipes = (async (_args, context) => {
   });
 
   return recipes;
+}) satisfies GetAllPublishedRecipes;
+
+export const getAllRecipes = (async (_args, context) => {
+  if (!context.user || !context.user.isAdmin) {
+    throw new HttpError(403, "Unauthorized");
+  }
+
+  const recipes = await context.entities.Recipe.findMany({
+    include: {
+      author: true,
+      ingredients: true,
+      photo: true,
+      steps: true,
+      tags: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return recipes;
 }) satisfies GetAllRecipes;
 
 export const getFeaturedRecipes = (async (_args, context) => {
   const recipes = await context.entities.Recipe.findMany({
-    where: { featured: true },
+    where: {
+      AND: {
+        featured: true,
+        published: true,
+        pending: false,
+        inReview: false,
+        denied: false,
+      },
+    },
     include: {
       author: true,
       photo: true,
@@ -33,6 +72,66 @@ export const getFeaturedRecipes = (async (_args, context) => {
   });
   return recipes;
 }) satisfies GetFeaturedRecipes;
+
+export const getPendingRecipes = (async (_args, context) => {
+  if (!context.user || !context.user.isAdmin) {
+    throw new HttpError(403, "Unauthorized");
+  }
+
+  const recipes = await context.entities.Recipe.findMany({
+    where: { pending: true },
+    include: {
+      author: true,
+      photo: true,
+      ingredients: true,
+      steps: true,
+      tags: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return recipes;
+}) satisfies GetPendingRecipes;
+
+export const getInReviewRecipes = (async (_args, context) => {
+  if (!context.user || !context.user.isAdmin) {
+    throw new HttpError(403, "Unauthorized");
+  }
+
+  const recipes = await context.entities.Recipe.findMany({
+    where: { inReview: true },
+    include: {
+      author: true,
+      photo: true,
+      ingredients: true,
+      steps: true,
+      tags: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return recipes;
+}) satisfies GetInReviewRecipes;
+
+export const getDeniedRecipes = (async (_args, context) => {
+  if (!context.user || !context.user.isAdmin) {
+    throw new HttpError(403, "Unauthorized");
+  }
+
+  const recipes = await context.entities.Recipe.findMany({
+    where: { denied: true },
+    include: {
+      author: true,
+      photo: true,
+      ingredients: true,
+      steps: true,
+      tags: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return recipes;
+}) satisfies GetDeniedRecipes;
 
 export const getRecipe = (async ({ recipeId }, context) => {
   const recipe = await context.entities.Recipe.findUnique({

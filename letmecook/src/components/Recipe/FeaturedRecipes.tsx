@@ -21,8 +21,7 @@ export function FeaturedRecipes() {
 
   return (
     <section id="featured-recipe" className="flex flex-col gap-3">
-      <h2 className="text-2xl sm:text-3xl font-bold">Featured Recipe</h2>
-      {data && data.length > 0 ? (
+      {data && data.length > 0 && (
         <Card className="max-w-[512px]" aria-description="featured recipe card">
           <CardHeader>
             <CardTitle>
@@ -44,9 +43,9 @@ export function FeaturedRecipes() {
             </Link>
           </CardFooter>
         </Card>
-      ) : (
-        <FeaturedRecipesSkeleton />
       )}
+      {isLoading && <FeaturedRecipesSkeleton />}
+      {error && <div>Error: {error.message}</div>}
     </section>
   )
 }

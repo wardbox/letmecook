@@ -1,4 +1,4 @@
-import { useQuery, getAllRecipes } from "wasp/client/operations";
+import { useQuery, getAllPublishedRecipes } from "wasp/client/operations";
 import { RecipeCard } from "./RecipeCard";
 import { SmileySad, XCircle } from "@phosphor-icons/react";
 import { RecipeCardSkeleton } from "./Skeletons/RecipeCardSkeleton";
@@ -8,7 +8,7 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 
 export interface AllRecipesPageProps {
-  recipes: Awaited<ReturnType<typeof getAllRecipes>>;
+  recipes: Awaited<ReturnType<typeof getAllPublishedRecipes>>;
 }
 
 export default function AllRecipesPage() {
@@ -16,7 +16,7 @@ export default function AllRecipesPage() {
   // filter by upvote ratio (upvotes / (upvotes + downvotes))
   // filter by newest (which is default right now)
 
-  const { data, error, isLoading } = useQuery(getAllRecipes);
+  const { data, error, isLoading } = useQuery(getAllPublishedRecipes);
   const [filteredData, setFilteredData] = useState<AllRecipesPageProps["recipes"] | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [authorFilter, setAuthorFilter] = useState<AllRecipesPageProps["recipes"][0]["author"] | "">("");

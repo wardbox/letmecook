@@ -7,14 +7,23 @@ import { toast } from "../../components/ui/use-toast"
 import Votes from "./Votes";
 import { getDownloadFileSignedURL } from 'wasp/client/operations';
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "wasp/client/auth";
+import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 
 export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   const { data, error, isLoading } = useQuery(getRecipe, { recipeId: props.match.params.id });
+  const history = useHistory();
   const url = location.href;
-
   const [photo, setPhoto] = useState<string | null>(null);
+  const { data: user } = useAuth();
 
   useEffect(() => {
+    if (data && !data.published && ((user?.id !== data.authorId) || !user.isAdmin)) {
+      history.push("/");
+    }
+
     if (data && data.photo) {
       getDownloadFileSignedURL({ key: data.photo.key }).then((url) => {
         setPhoto(url);
@@ -44,6 +53,22 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
       {data && (
         <div className="flex flex-col gap-12 text-balance">
           <section id="heading" className="p-3">
+            {!data.published && (
+              <div className="flex flex-col gap-3 p-8">
+                <div className="flex gap-3">
+                  {data.pending && <Badge variant="destructive" className="text-lg">Pending</Badge>}
+                  {data.inReview && <Badge variant="destructive" className="text-lg">In Review</Badge>}
+                  {data.denied && <Badge variant="destructive" className="text-lg">Denied</Badge>}
+                </div>
+                {user && user.isAdmin && (
+                  <div className="flex flex-col gap-3">
+                    <Label>Admin comments</Label>
+                    <Textarea />
+                    <Button>Submit</Button>
+                  </div>
+                )}
+              </div>
+            )}
             <hgroup className="flex flex-col gap-5">
               <h1 className="text-6xl font-bold">{data.title}</h1>
               <p className="text-muted-foreground">by {data.author.username}</p>

@@ -50,7 +50,18 @@ page SubmitRecipePage {
   component: import SubmitRecipePage from "@src/components/Recipe/SubmitRecipePage"
 }
 
+route AdminRoute { path: "/admin", to: AdminPage }
+page AdminPage {
+  authRequired: true,
+  component: import AdminPage from "@src/client/app/AdminPage"
+}
+
 // queries
+query getAllPublishedRecipes {
+  fn: import { getAllPublishedRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
 query getAllRecipes {
   fn: import { getAllRecipes } from "@src/server/queries.js",
   entities: [Recipe]
@@ -63,6 +74,21 @@ query getRecipe {
 
 query getFeaturedRecipes {
   fn: import { getFeaturedRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getPendingRecipes {
+  fn: import { getPendingRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getInReviewRecipes {
+  fn: import { getInReviewRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getDeniedRecipes {
+  fn: import { getDeniedRecipes } from "@src/server/queries.js",
   entities: [Recipe]
 }
 

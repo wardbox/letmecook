@@ -1,30 +1,34 @@
 import { Recipe } from "wasp/entities";
 import { HttpError } from "wasp/server";
 
-import {
-  type CreateRecipe,
-} from "wasp/server/operations";
+import { type CreateRecipe } from "wasp/server/operations";
 
-export const createRecipe: CreateRecipe<Pick<Recipe,
-  'title' |
-  'cookTime' |
-  'notes' |
-  'prepTime' |
-  'servings'
-> & {
-  ingredients: Array<{
-    amount?: string;
-    name?: string;
-    measurement?: string;
-  }>;
-  steps: Array<{
-    order?: number;
-    description?: string;
-  }>;
-  tags: Array<string>;
-  notes?: string;
-}, Recipe> = async ({ title, cookTime, notes, prepTime, servings, ingredients, steps, tags }, context) => {
-
+export const createRecipe: CreateRecipe<
+  Pick<
+    Recipe,
+    | "title"
+    | "cookTime"
+    | "notes"
+    | "prepTime"
+    | "servings"
+  > & {
+    ingredients: Array<{
+      amount?: string;
+      name?: string;
+      measurement?: string;
+    }>;
+    steps: Array<{
+      order?: number;
+      description?: string;
+    }>;
+    tags: Array<string>;
+    notes?: string;
+  },
+  Recipe
+> = async (
+  { title, cookTime, notes, prepTime, servings, ingredients, steps, tags },
+  context,
+) => {
   if (!context.user) {
     throw new HttpError(401);
   }
@@ -37,14 +41,17 @@ export const createRecipe: CreateRecipe<Pick<Recipe,
       notes,
       prepTime,
       servings,
+      pending: true,
     },
   });
 
   ingredients.map(async (ingredient) => {
     if (!ingredient.name || !ingredient.amount || !ingredient.measurement) {
-      throw new HttpError(400, "Ingredient must have a name, amount, and measurement");
+      throw new HttpError(
+        400,
+        "Ingredient must have a name, amount, and measurement",
+      );
     }
-
 
     await context.entities.Ingredient.create({
       data: {
@@ -93,4 +100,4 @@ export const createRecipe: CreateRecipe<Pick<Recipe,
   });
 
   return recipe;
-}
+};

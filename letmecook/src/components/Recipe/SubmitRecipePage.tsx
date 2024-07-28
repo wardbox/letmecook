@@ -345,7 +345,7 @@ export default function SubmitRecipePage() {
                 <FormItem>
                   <FormLabel className="text-2xl">Steps</FormLabel>
                   {stepFields.map((field, index) => (
-                    <div key={field.id} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div key={field.id} className="grid grid-cols-1 sm:flex gap-3">
                       <Controller
                         control={control}
                         name={`steps.${index}.order`}
@@ -356,11 +356,12 @@ export default function SubmitRecipePage() {
                               placeholder={`${index + 1}`}
                               disabled
                               value={index + 1}
+                              className='w-12'
                             />
                           </FormControl>
                         )}
                       />
-                      <div className="flex gap-3">
+                      <div className="flex w-full gap-3">
                         <Controller
                           control={control}
                           name={`steps.${index}.description`}
@@ -368,7 +369,6 @@ export default function SubmitRecipePage() {
                             <FormControl>
                               <Textarea
                                 placeholder="Describe what to do on this step"
-                                className="resize-none"
                                 {...field}
                               />
                             </FormControl>
