@@ -12,7 +12,7 @@ export function FeaturedRecipes() {
   const [photo, setPhoto] = useState<string | null>(null);
 
   useEffect(() => {
-    if (data && data[0].photo) {
+    if (data && data.length > 0 && data[0].photo) {
       getDownloadFileSignedURL({ key: data[0].photo.key }).then((url) => {
         setPhoto(url);
       });
@@ -22,7 +22,7 @@ export function FeaturedRecipes() {
   return (
     <section id="featured-recipe" className="flex flex-col gap-3">
       <h2 className="text-2xl sm:text-3xl font-bold">Featured Recipe</h2>
-      {data ? (
+      {data && data.length > 0 ? (
         <Card className="max-w-[512px]" aria-description="featured recipe card">
           <CardHeader>
             <CardTitle>

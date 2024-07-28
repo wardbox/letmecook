@@ -11,7 +11,7 @@ export function FeaturedRecipesSkeleton() {
         <Skeleton className="h-4 w-1/4" />
       </CardHeader>
       <CardContent className="flex relative aspect-square items-center justify-center p-6 overflow-hidden">
-        <Skeleton className="rounded-md h-64 w-64 object-cover" />
+        <Skeleton className="rounded-md w-full h-full object-cover" />
       </CardContent>
     </Card>
   )

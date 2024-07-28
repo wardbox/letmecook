@@ -18,6 +18,7 @@ import { X } from "@phosphor-icons/react";
 import { Textarea } from "../ui/textarea";
 import { useHistory } from "react-router-dom";
 import { useToast } from "../ui/use-toast";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -50,11 +51,16 @@ const recipeFormSchema = z.object({
           .string()
           .refine(
             (value) =>
-              ["c", "tsp", "tbsp", "oz", "lb", "g", "kg", "ml", "l", "fl oz", "gal", "pt", "qt"].includes(value.toLowerCase()), {
-            message: "Invalid measurement",
-          }),
-      }, { message: "test" }),
-    ).min(1, { message: "At least one ingredient is required" }),
+              [
+                "g", "kg", "ml", "l", "tsp", "tbsp", "oz", "lb", "fl oz", "c", "pt", "qt", "gal"
+              ].includes(value.toLowerCase()),
+            {
+              message: "Invalid measurement",
+            }
+          ),
+      }, { message: "At least one ingredient is required" })
+    )
+    .min(1, { message: "At least one ingredient is required" }),
   steps: z.array(z.object({
     order: z.number().min(1, { message: "Order is required" }),
     description: z.string().min(1, { message: "Description is required" }),
@@ -160,13 +166,10 @@ export default function SubmitRecipePage() {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-2xl">Title</FormLabel>
+                  <FormLabel className="text-2xl">Recipe Title</FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="My great recipe" {...field} />
+                    <Input type="text" placeholder="Bacon Pancakes" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Title of the recipe - what you'd call it in a cookbook
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -181,7 +184,7 @@ export default function SubmitRecipePage() {
                     <Input type="file" {...fileRef} />
                   </FormControl>
                   <FormDescription>
-                    Photo of the recipe - ensure it's well lit and in focus.
+                    Ensure it's well lit and in focus.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -244,7 +247,7 @@ export default function SubmitRecipePage() {
                 <FormItem>
                   <FormLabel className="text-2xl">Ingredients</FormLabel>
                   {ingredientFields.map((field, index) => (
-                    <div key={field.id} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div key={field.id} className="flex flex-col sm:flex-row gap-3">
                       <Controller
                         control={control}
                         name={`ingredients.${index}.name`}
@@ -276,13 +279,35 @@ export default function SubmitRecipePage() {
                           control={control}
                           name={`ingredients.${index}.measurement`}
                           render={({ field }) => (
-                            <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="Measurement (e.g. cup, tsp)"
-                                {...field}
-                              />
-                            </FormControl>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Measurement" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel className="font-bold">Metric</SelectLabel>
+                                  <SelectItem value="g">g</SelectItem>
+                                  <SelectItem value="kg">kg</SelectItem>
+                                  <SelectItem value="ml">mL</SelectItem>
+                                  <SelectItem value="l">L</SelectItem>
+                                </SelectGroup>
+                                <SelectGroup>
+                                  <SelectLabel className="font-bold">Imperial</SelectLabel>
+                                  <SelectItem value="tsp">tsp</SelectItem>
+                                  <SelectItem value="tbsp">tbsp</SelectItem>
+                                  <SelectItem value="oz">oz</SelectItem>
+                                  <SelectItem value="lb">lb</SelectItem>
+                                  <SelectItem value="fl oz">fl oz</SelectItem>
+                                  <SelectItem value="c">cup</SelectItem>
+                                  <SelectItem value="pt">pt</SelectItem>
+                                  <SelectItem value="qt">qt</SelectItem>
+                                  <SelectItem value="gal">gal</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+
                           )}
                         />
                         <Button
