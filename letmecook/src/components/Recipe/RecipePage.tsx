@@ -24,8 +24,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   const { data: user } = useAuth();
 
   useEffect(() => {
-    // if we have data and the user is either not an admin or not the author of the recipe, redirect to the home page
-    if (data && !user?.isAdmin && user?.id !== data.authorId) {
+    if (data && !user?.isAdmin && user?.id !== data.authorId && !data.published) {
       history.push("/");
     }
 
@@ -82,61 +81,68 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
                 <RecipeAdminStatusForm recipe={data} />
               </div>
             )}
-            <hgroup className="flex flex-col gap-5">
-              <h1 className="text-6xl font-bold">{data.title}</h1>
-              <p className="text-muted-foreground">by {data.author.username}</p>
-              <div className="flex gap-8 items-center printhide">
-                <Votes upvotes={data.upvotes} downvotes={data.downvotes} />
-                <div className="flex gap-3">
-                  <Button size="sm" variant="secondary" onClick={handlePrintRecipe}><Printer size={24} /></Button>
-                  <Button size="sm" variant="secondary" onClick={handleClickShare}><Share size={24} /></Button>
+            {data.published && (
+              <hgroup className="flex flex-col gap-5">
+                <h1 className="text-6xl font-bold">{data.title}</h1>
+                <p className="text-muted-foreground">by {data.author.username}</p>
+                <div className="flex gap-8 items-center printhide">
+                  <Votes upvotes={data.upvotes} downvotes={data.downvotes} />
+                  <div className="flex gap-3">
+                    <Button size="sm" variant="secondary" onClick={handlePrintRecipe}><Printer size={24} /></Button>
+                    <Button size="sm" variant="secondary" onClick={handleClickShare}><Share size={24} /></Button>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-wrap gap-2 printhide">
-                {data.tags.map((tag) => (
-                  <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
-                ))}
-              </div>
-            </hgroup>
-          </section>
-          <section id="photos" className="printhide">
-            {photo ? (
-              <img className="rounded-md w-full" src={photo} alt={`photo of ${data.title}`} />
-            ) : (
-              <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+                <div className="flex flex-wrap gap-2 printhide">
+                  {data.tags.map((tag) => (
+                    <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
+                  ))}
+                </div>
+              </hgroup>
             )}
           </section>
-          <hr className="printhide" />
-          <section id="logistics" className="flex flex-col gap-3 max-w-max">
-            <h2 className="text-3xl font-bold">Logistics</h2>
-            <div className="grid grid-cols-2 gap-3">
-              <p>Prep: {data.prepTime}m</p>
-              <p>Cook: {data.cookTime}m</p>
-              <p>Total: {data.prepTime + data.cookTime}m</p>
-              <p>Servings: {data.servings} humans</p>
+          {data.published && (
+            <div>
+              <section id="photos" className="printhide">
+                {photo ? (
+                  <img className="rounded-md w-full" src={photo} alt={`photo of ${data.title}`} />
+                ) : (
+                  <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+                )}
+              </section>
+              <hr className="printhide" />
+              <section id="logistics" className="flex flex-col gap-3 max-w-max">
+                <h2 className="text-3xl font-bold">Logistics</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  <p>Prep: {data.prepTime}m</p>
+                  <p>Cook: {data.cookTime}m</p>
+                  <p>Total: {data.prepTime + data.cookTime}m</p>
+                  <p>Servings: {data.servings} humans</p>
+                </div>
+              </section>
+              <section id="ingredients" className="flex flex-col gap-3">
+                <h2 className="text-3xl font-bold">Ingredients</h2>
+                <ul className="list-disc list-inside flex flex-col gap-3">
+                  {data.ingredients.map((ingredient) => (
+                    <li key={ingredient.id}>{ingredient.amount} {ingredient.measurement} {ingredient.name}</li>
+                  ))}
+                </ul>
+              </section>
+              <section id="steps" className="flex flex-col gap-3">
+                <h2 className="text-3xl font-bold">Steps</h2>
+                <ol className="list-decimal list-inside flex flex-col gap-3">
+                  {data.steps.map((step) => (
+                    <li key={step.id}>{step.description}</li>
+                  ))}
+                </ol>
+              </section>
+              <section id="notes">
+                <h2 className="text-3xl font-bold">Notes</h2>
+                <p>{data.notes}</p>
+              </section>
             </div>
-          </section>
-          <section id="ingredients" className="flex flex-col gap-3">
-            <h2 className="text-3xl font-bold">Ingredients</h2>
-            <ul className="list-disc list-inside flex flex-col gap-3">
-              {data.ingredients.map((ingredient) => (
-                <li key={ingredient.id}>{ingredient.amount} {ingredient.measurement} {ingredient.name}</li>
-              ))}
-            </ul>
-          </section>
-          <section id="steps" className="flex flex-col gap-3">
-            <h2 className="text-3xl font-bold">Steps</h2>
-            <ol className="list-decimal list-inside flex flex-col gap-3">
-              {data.steps.map((step) => (
-                <li key={step.id}>{step.description}</li>
-              ))}
-            </ol>
-          </section>
-          <section id="notes">
-            <h2 className="text-3xl font-bold">Notes</h2>
-            <p>{data.notes}</p>
-          </section>
+          )}
         </div>
+
       )
       }
       {isLoading && <p>Loading...</p>}
