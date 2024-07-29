@@ -282,10 +282,12 @@ export default function SubmitRecipePage() {
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Measurement" />
+                                  <SelectValue placeholder="Measurement">
+                                    {field.value}
+                                  </SelectValue>
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
+                              <SelectContent aria-label="Measurement">
                                 <SelectGroup>
                                   <SelectLabel className="font-bold">Metric</SelectLabel>
                                   <SelectItem value="g">g</SelectItem>
@@ -317,6 +319,7 @@ export default function SubmitRecipePage() {
                           onClick={() =>
                             removeIngredient(index)
                           }
+                          aria-label="Remove ingredient"
                         >
                           <X />
                         </Button>

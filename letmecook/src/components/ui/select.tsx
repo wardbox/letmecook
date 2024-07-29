@@ -21,6 +21,7 @@ const SelectTrigger = React.forwardRef<
       className
     )}
     {...props}
+    aria-label="Open select dropdown"
   >
     {children}
     <SelectPrimitive.Icon asChild>

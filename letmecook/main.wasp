@@ -56,6 +56,12 @@ page AdminPage {
   component: import AdminPage from "@src/client/app/AdminPage"
 }
 
+route ProfileRoute { path: "/profile", to: ProfilePage }
+page ProfilePage {
+  authRequired: true,
+  component: import ProfilePage from "@src/client/app/ProfilePage"
+}
+
 // queries
 query getAllPublishedRecipes {
   fn: import { getAllPublishedRecipes } from "@src/server/queries.js",
@@ -97,6 +103,16 @@ query getDownloadFileSignedURL {
   entities: [User, File]
 }
 
+query getUserRecipes {
+  fn: import { getUserRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getRecipeComments {
+  fn: import { getRecipeComments } from "@src/server/queries.js",
+  entities: [Recipe, RecipeComment]
+}
+
 // actions
 action createFile {
   fn: import { createFile } from "@src/file-upload/operations",
@@ -106,4 +122,34 @@ action createFile {
 action createRecipe {
   fn: import { createRecipe } from "@src/server/actions.js",
   entities: [User, Recipe, Tag, Ingredient, Step]
+}
+
+action setRecipePending {
+  fn: import { setRecipePending } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeInReview {
+  fn: import { setRecipeInReview } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeDenied {
+  fn: import { setRecipeDenied } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipePublished {
+  fn: import { setRecipePublished } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action createRecipeComment {
+  fn: import { createRecipeComment } from "@src/server/actions.js",
+  entities: [Recipe, RecipeComment]
+}
+
+action setUserSeenComment {
+  fn: import { setUserSeenComment } from "@src/server/actions.js",
+  entities: [User, RecipeComment]
 }

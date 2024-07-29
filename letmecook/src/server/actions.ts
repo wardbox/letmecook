@@ -1,7 +1,15 @@
-import { Recipe } from "wasp/entities";
+import { type Recipe, type RecipeComment } from "wasp/entities";
 import { HttpError } from "wasp/server";
 
-import { type CreateRecipe } from "wasp/server/operations";
+import {
+  type CreateRecipe,
+  type CreateRecipeComment,
+  type SetRecipeDenied,
+  type SetRecipeInReview,
+  type SetRecipePending,
+  type SetRecipePublished,
+  type SetUserSeenComment,
+} from "wasp/server/operations";
 
 export const createRecipe: CreateRecipe<
   Pick<
@@ -100,4 +108,192 @@ export const createRecipe: CreateRecipe<
   });
 
   return recipe;
+};
+
+export const setRecipePending: SetRecipePending<{ recipeId: string }, Recipe> =
+  async (
+    { recipeId },
+    context,
+  ) => {
+    if (!context.user) {
+      throw new HttpError(401);
+    }
+
+    if (!context.user.isAdmin) {
+      throw new HttpError(403);
+    }
+
+    const recipe = await context.entities.Recipe.findFirst({
+      where: { id: recipeId },
+    });
+
+    if (!recipe) {
+      throw new HttpError(404);
+    }
+
+    return await context.entities.Recipe.update({
+      where: { id: recipeId },
+      data: {
+        pending: true,
+        inReview: false,
+        denied: false,
+        published: false,
+      },
+    });
+  };
+
+export const setRecipeInReview: SetRecipeInReview<
+  { recipeId: string },
+  Recipe
+> = async (
+  { recipeId },
+  context,
+) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  if (!context.user.isAdmin) {
+    throw new HttpError(403);
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  return await context.entities.Recipe.update({
+    where: { id: recipeId },
+    data: {
+      pending: false,
+      inReview: true,
+      denied: false,
+      published: false,
+    },
+  });
+};
+
+export const setRecipeDenied: SetRecipeDenied<{ recipeId: string }, Recipe> =
+  async (
+    { recipeId },
+    context,
+  ) => {
+    if (!context.user) {
+      throw new HttpError(401);
+    }
+
+    if (!context.user.isAdmin) {
+      throw new HttpError(403);
+    }
+
+    const recipe = await context.entities.Recipe.findFirst({
+      where: { id: recipeId },
+    });
+
+    if (!recipe) {
+      throw new HttpError(404);
+    }
+
+    return await context.entities.Recipe.update({
+      where: { id: recipeId },
+      data: {
+        pending: false,
+        inReview: false,
+        denied: true,
+        published: false,
+      },
+    });
+  };
+
+export const setRecipePublished: SetRecipePublished<
+  { recipeId: string },
+  Recipe
+> = async (
+  { recipeId },
+  context,
+) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  if (!context.user.isAdmin) {
+    throw new HttpError(403);
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  return await context.entities.Recipe.update({
+    where: { id: recipeId },
+    data: {
+      pending: false,
+      inReview: false,
+      denied: false,
+      published: true,
+    },
+  });
+};
+
+export const createRecipeComment: CreateRecipeComment<
+  { recipeId: string; content: string; recipeStatus: string },
+  RecipeComment
+> = async ({ recipeId, content, recipeStatus }, context) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  return await context.entities.RecipeComment.create({
+    data: {
+      recipe: { connect: { id: recipeId } },
+      user: { connect: { id: context.user.id } },
+      text: content,
+      recipeStatus: recipeStatus,
+    },
+  });
+};
+
+export const setUserSeenComment: SetUserSeenComment<
+  { commentId: string },
+  RecipeComment | null
+> = async ({ commentId }, context) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  const comment = await context.entities.RecipeComment.findFirst({
+    where: { id: commentId },
+    include: { recipe: { include: { author: true } } },
+  });
+
+  if (!comment) {
+    throw new HttpError(404);
+  }
+
+  if (comment.recipe.author.id !== context.user.id) {
+    // don't error, just don't update the comment
+    return null;
+  }
+
+  return await context.entities.RecipeComment.update({
+    where: { id: commentId },
+    data: {
+      userSeen: true,
+    },
+  });
 };

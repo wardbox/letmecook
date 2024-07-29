@@ -102,7 +102,7 @@ export const Nav = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link to="/">
+              <Link to="/profile">
                 <DropdownMenuItem className="cursor-pointer">
                   Profile
                 </DropdownMenuItem>
