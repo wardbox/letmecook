@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "wasp/client/auth";
 import RecipeAdminStatusForm from "./RecipeAdminStatusForm";
 import RecipeComments from "./RecipeComments";
+import { Skeleton } from "../ui/skeleton";
 
 export interface RecipePageProps {
   recipe: Awaited<ReturnType<typeof getRecipe>>;
@@ -73,7 +74,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   return (
     <div className="h-full max-w-3xl mx-auto p-3 my-16">
       {data && (user?.isAdmin || user?.id == data.authorId) && (
-        <div className="flex flex-col gap-3 p-8 mb-8 border">
+        <div className="flex flex-col gap-3 p-8 mb-8 border printhide">
           <h2 className="text-lg">Owner Info</h2>
           <p className="text-muted-foreground text-sm">Status updates and admin correspondence will appear here. This is not visible to other users.</p>
           <div className="flex flex-col gap-3 p-3 sm:max-w-min text-nowrap">
@@ -92,7 +93,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
         </div>
       )}
       {data && user?.isAdmin && (
-        <div className="flex flex-col gap-5 p-5">
+        <div className="flex flex-col gap-5 p-5 printhide">
           <RecipeAdminStatusForm recipe={data} />
           <Button className="max-w-min" onClick={setFeatured}>Feature Recipe</Button>
           <Button className="max-w-min" variant="destructive" onClick={setUnfeatured}>Unfeature Recipe</Button>
@@ -121,11 +122,11 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
                 </div>
               </hgroup>
             </section>
-            <section id="photos" className="printhide">
+            <section id="photo" className="printhide">
               {photo ? (
                 <img className="rounded-md w-full" src={photo} alt={`photo of ${data.title}`} />
               ) : (
-                <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+                <Skeleton className="rounded-md w-full h-256" />
               )}
             </section>
             <hr className="printhide" />

@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { AllRecipesPageProps } from "./AllRecipesPage";
 import { getDownloadFileSignedURL } from 'wasp/client/operations';
 import { useEffect, useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 export function RecipeCard({ recipe, setAuthor }: {
   recipe: AllRecipesPageProps["recipes"][0],
@@ -36,7 +37,7 @@ export function RecipeCard({ recipe, setAuthor }: {
         {photo ? (
           <img className="object-cover rounded-md w-full h-[256px]" src={photo} alt={`photo of ${recipe.title}`} />
         ) : (
-          <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+          <Skeleton className="object-cover rounded-md w-full h-[256px]" />
         )}
       </CardContent>
       <CardFooter className="sm:p-5 flex justify-between items-center">

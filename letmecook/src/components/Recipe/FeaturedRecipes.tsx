@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { getDownloadFileSignedURL } from "wasp/client/operations";
 import { useEffect, useState } from "react";
 import { SmileySad } from "@phosphor-icons/react";
+import { Skeleton } from "../ui/skeleton";
 
 export function FeaturedRecipes() {
   const { data, error, isLoading } = useQuery(getFeaturedRecipes);
@@ -34,7 +35,7 @@ export function FeaturedRecipes() {
             {photo ? (
               <img className="rounded-md w-full h-[256px] sm:h-[512px] object-cover" src={photo} alt="photo of food" />
             ) : (
-              <div className="rounded-md w-full aspect-square bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+              <Skeleton className="rounded-md w-full h-[256px] sm:h-[512px] object-cover" />
             )}
           </CardContent>
           <CardFooter className="sm:p-5 flex justify-between items-center">
