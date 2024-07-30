@@ -1,9 +1,12 @@
 import { type Recipe, type RecipeComment } from "wasp/entities";
 import { HttpError } from "wasp/server";
 
+import { type Vote } from "wasp/entities";
+
 import {
   type CreateRecipe,
   type CreateRecipeComment,
+  type CreateVote,
   type SetRecipeDenied,
   type SetRecipeFeatured,
   type SetRecipeInReview,
@@ -352,6 +355,58 @@ export const setRecipeUnfeatured: SetRecipeUnfeatured<
     where: { id: recipeId },
     data: {
       featured: false,
+    },
+  });
+};
+
+export const createVote: CreateVote<
+  { recipeId: string; upvote?: boolean; downvote?: boolean },
+  Vote
+> = async ({ recipeId, upvote, downvote }, context) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  if (!upvote && !downvote) {
+    throw new HttpError(400, "Must provide upvote or downvote");
+  }
+
+  if (upvote && downvote) {
+    throw new HttpError(400, "Cannot provide both upvote and downvote");
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  const existingVote = await context.entities.Vote.findFirst({
+    where: { recipeId: recipeId, userId: context.user.id },
+  });
+
+  if (existingVote) {
+    if (upvote && existingVote.upvote) {
+      throw new HttpError(400, "User has already upvoted this recipe");
+    }
+
+    if (downvote && existingVote.downvote) {
+      throw new HttpError(400, "User has already downvoted this recipe");
+    }
+
+    await context.entities.Vote.delete({
+      where: { id: existingVote.id },
+    });
+  }
+
+  return await context.entities.Vote.create({
+    data: {
+      recipe: { connect: { id: recipeId } },
+      user: { connect: { id: context.user.id } },
+      upvote: upvote,
+      downvote: downvote,
     },
   });
 };

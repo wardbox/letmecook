@@ -8,8 +8,8 @@ app letmecook {
     "<meta property='og:title' content='letmecook' />",
     "<meta property='og:url' content='https://letmecook.food' />",
     "<meta property='og:description' content='A clean and simple cookbook with 100% good recipes.' />",
-    "<meta property='og:image' content='https://letmecook.food/logomark.png' />",
-    "<meta name='twitter:image' content='https://letmecook.food/logomark.png' />",
+    "<meta property='og:image' content='https://letmecook.food/icon.png' />",
+    "<meta name='twitter:image' content='https://letmecook.food/icon.png' />",
     "<meta name='twitter:image:width' content='600' />",
     "<meta name='twitter:image:height' content='600' />",
     "<meta name='twitter:card' content='summary_large_image' />",
@@ -175,4 +175,9 @@ action setRecipeFeatured {
 action setRecipeUnfeatured {
   fn: import { setRecipeUnfeatured } from "@src/server/actions.js",
   entities: [Recipe]
+}
+
+action createVote {
+  fn: import { createVote } from "@src/server/actions.js",
+  entities: [User, Vote, Recipe]
 }
