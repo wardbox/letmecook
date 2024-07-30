@@ -18,6 +18,10 @@ export interface RecipePageProps {
 }
 
 export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data, error, isLoading } = useQuery(getRecipe, { recipeId: props.match.params.id });
   const history = useHistory();
   const url = location.href;
