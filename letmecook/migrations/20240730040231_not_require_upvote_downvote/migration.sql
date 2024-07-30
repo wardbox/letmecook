@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Vote" ALTER COLUMN "downvote" DROP NOT NULL,
+ALTER COLUMN "upvote" DROP NOT NULL;

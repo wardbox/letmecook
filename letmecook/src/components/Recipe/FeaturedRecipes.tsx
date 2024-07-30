@@ -38,7 +38,7 @@ export function FeaturedRecipes() {
             )}
           </CardContent>
           <CardFooter className="sm:p-5 flex justify-between items-center">
-            <Votes upvotes={data[0].upvotes} downvotes={data[0].downvotes} />
+            <Votes upvotes={data[0].votes.filter(vote => vote.upvote).length} downvotes={data[0].votes.filter(vote => vote.downvote).length} recipeId={data[0].id} />
             <Link to="/recipes/:id" params={{ id: data[0].id }} className="">
               <Button size="sm" className="origin-bottom-right hover:rotate-3 transition">Cook it</Button>
             </Link>

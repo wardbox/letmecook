@@ -108,7 +108,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
                 <h1 className="text-6xl font-bold">{data.title}</h1>
                 <p className="text-muted-foreground">by {data.author.username}</p>
                 <div className="flex gap-8 items-center printhide">
-                  <Votes upvotes={data.upvotes} downvotes={data.downvotes} />
+                  <Votes upvotes={data.votes.filter(vote => vote.upvote).length} downvotes={data.votes.filter(vote => vote.downvote).length} recipeId={data.id} />
                   <div className="flex gap-3">
                     <Button size="sm" variant="secondary" onClick={handlePrintRecipe}><Printer size={24} /></Button>
                     <Button size="sm" variant="secondary" onClick={handleClickShare}><Share size={24} /></Button>

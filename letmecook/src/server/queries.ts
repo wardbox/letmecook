@@ -28,6 +28,7 @@ export const getAllPublishedRecipes = (async (_args, context) => {
       photo: true,
       steps: true,
       tags: true,
+      votes: true,
     },
     orderBy: { title: "asc" },
   });
@@ -47,6 +48,7 @@ export const getAllRecipes = (async (_args, context) => {
       photo: true,
       steps: true,
       tags: true,
+      votes: true,
     },
     orderBy: { createdAt: "desc" },
   });
@@ -68,8 +70,8 @@ export const getFeaturedRecipes = (async (_args, context) => {
     include: {
       author: true,
       photo: true,
+      votes: true,
     },
-    orderBy: { upvotes: "desc" },
     take: 3,
   });
   return recipes;
@@ -88,6 +90,12 @@ export const getPendingRecipes = (async (_args, context) => {
       ingredients: true,
       steps: true,
       tags: true,
+      votes: true,
+      adminComment: {
+        include: {
+          user: true,
+        },
+      },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -108,6 +116,7 @@ export const getInReviewRecipes = (async (_args, context) => {
       ingredients: true,
       steps: true,
       tags: true,
+      votes: true,
       adminComment: {
         include: {
           user: true,
@@ -133,6 +142,7 @@ export const getDeniedRecipes = (async (_args, context) => {
       ingredients: true,
       steps: true,
       tags: true,
+      votes: true,
       adminComment: {
         include: {
           user: true,
@@ -156,6 +166,7 @@ export const getRecipe = (async ({ recipeId }, context) => {
         orderBy: { order: "asc" },
       },
       tags: true,
+      votes: true,
     },
   });
 
@@ -179,6 +190,7 @@ export const getUserRecipes = (async (_args, context) => {
       ingredients: true,
       steps: true,
       tags: true,
+      votes: true,
       adminComment: {
         include: {
           user: true,

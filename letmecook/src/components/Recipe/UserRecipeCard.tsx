@@ -40,7 +40,7 @@ export default function UserRecipeCard({ recipe, setAuthor }: {
         )}
       </CardContent>
       <CardFooter className="sm:p-5 flex justify-between items-center">
-        <Votes upvotes={recipe.upvotes} downvotes={recipe.downvotes} />
+        <Votes upvotes={recipe.votes.filter(vote => vote.upvote).length} downvotes={recipe.votes.filter(vote => vote.downvote).length} recipeId={recipe.id} />
         <Link to="/recipes/:id" params={{ id: recipe.id }} className="">
           <Button size="sm" className="origin-bottom-right hover:rotate-3 transition">Cook it</Button>
         </Link>
