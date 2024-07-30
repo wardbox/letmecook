@@ -3,8 +3,21 @@ app letmecook {
     version: "^0.14.0"
   },
   title: "letmecook",
+  head: [
+    "<meta property='og:type' content='website' />",
+    "<meta property='og:title' content='letmecook' />",
+    "<meta property='og:url' content='https://letmecook.food' />",
+    "<meta property='og:description' content='A clean and simple cookbook with 100% good recipes.' />",
+    "<meta property='og:image' content='https://letmecook.food/logomark.png' />",
+    "<meta name='twitter:image' content='https://letmecook.food/logomark.png' />",
+    "<meta name='twitter:image:width' content='600' />",
+    "<meta name='twitter:image:height' content='600' />",
+    "<meta name='twitter:card' content='summary_large_image' />",
+    "<script defer data-domain='letmecook.food' src='https://plausible.io/js/script.js'></script>",
+  ],
   client: {
     rootComponent: import App from "@src/client/App",
+    setupFn: import setupClient from "@src/client/setup.ts",
   },
   auth: {
     userEntity: User,
@@ -152,4 +165,14 @@ action createRecipeComment {
 action setUserSeenComment {
   fn: import { setUserSeenComment } from "@src/server/actions.js",
   entities: [User, RecipeComment]
+}
+
+action setRecipeFeatured {
+  fn: import { setRecipeFeatured } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeUnfeatured {
+  fn: import { setRecipeUnfeatured } from "@src/server/actions.js",
+  entities: [Recipe]
 }

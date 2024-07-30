@@ -5,9 +5,11 @@ import {
   type CreateRecipe,
   type CreateRecipeComment,
   type SetRecipeDenied,
+  type SetRecipeFeatured,
   type SetRecipeInReview,
   type SetRecipePending,
   type SetRecipePublished,
+  type SetRecipeUnfeatured,
   type SetUserSeenComment,
 } from "wasp/server/operations";
 
@@ -294,6 +296,62 @@ export const setUserSeenComment: SetUserSeenComment<
     where: { id: commentId },
     data: {
       userSeen: true,
+    },
+  });
+};
+
+export const setRecipeFeatured: SetRecipeFeatured<
+  { recipeId: string },
+  Recipe
+> = async ({ recipeId }, context) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  if (!context.user.isAdmin) {
+    throw new HttpError(403);
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  return await context.entities.Recipe.update({
+    where: { id: recipeId },
+    data: {
+      featured: true,
+    },
+  });
+};
+
+export const setRecipeUnfeatured: SetRecipeUnfeatured<
+  { recipeId: string },
+  Recipe
+> = async ({ recipeId }, context) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
+  if (!context.user.isAdmin) {
+    throw new HttpError(403);
+  }
+
+  const recipe = await context.entities.Recipe.findFirst({
+    where: { id: recipeId },
+  });
+
+  if (!recipe) {
+    throw new HttpError(404);
+  }
+
+  return await context.entities.Recipe.update({
+    where: { id: recipeId },
+    data: {
+      featured: false,
     },
   });
 };

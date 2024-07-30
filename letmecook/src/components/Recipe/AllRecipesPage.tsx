@@ -26,15 +26,12 @@ export default function AllRecipesPage() {
       let filteredRecipes = data;
 
       if (searchTerm) {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
         filteredRecipes = filteredRecipes.filter((recipe) =>
-          searchTerm
-            .toLowerCase()
-            .split('')
-            .every((char) =>
-              recipe.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(char)) ||
-              recipe.title.toLowerCase().includes(char) ||
-              recipe.tags.some(tag => tag.name.toLowerCase().includes(char))
-            )
+          recipe.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(lowerCaseSearchTerm)) ||
+          recipe.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+          recipe.tags.some(tag => tag.name.toLowerCase().includes(lowerCaseSearchTerm))
         );
       }
 

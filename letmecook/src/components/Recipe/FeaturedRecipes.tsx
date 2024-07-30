@@ -6,6 +6,7 @@ import Votes from "./Votes";
 import { Button } from "../ui/button";
 import { getDownloadFileSignedURL } from "wasp/client/operations";
 import { useEffect, useState } from "react";
+import { SmileySad } from "@phosphor-icons/react";
 
 export function FeaturedRecipes() {
   const { data, error, isLoading } = useQuery(getFeaturedRecipes);
@@ -45,7 +46,12 @@ export function FeaturedRecipes() {
         </Card>
       )}
       {isLoading && <FeaturedRecipesSkeleton />}
-      {error && <div>Error: {error.message}</div>}
+      {error && (
+        <div className="flex flex-col items-center text-center justify-center gap-3 text-2xl font-bold">
+          <SmileySad size={128} weight="fill" className="text-destructive" />
+          <p>We lost the cookbook. Sorry.</p>
+        </div>
+      )}
     </section>
   )
 }

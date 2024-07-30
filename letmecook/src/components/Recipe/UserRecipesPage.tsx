@@ -26,15 +26,12 @@ export default function UserRecipesPage() {
       let filteredRecipes = data;
 
       if (searchTerm) {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
         filteredRecipes = filteredRecipes.filter((recipe) =>
-          searchTerm
-            .toLowerCase()
-            .split('')
-            .every((char) =>
-              recipe.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(char)) ||
-              recipe.title.toLowerCase().includes(char) ||
-              recipe.tags.some(tag => tag.name.toLowerCase().includes(char))
-            )
+          recipe.ingredients.some(ingredient => ingredient.name.toLowerCase().includes(lowerCaseSearchTerm)) ||
+          recipe.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+          recipe.tags.some(tag => tag.name.toLowerCase().includes(lowerCaseSearchTerm))
         );
       }
 
@@ -61,8 +58,8 @@ export default function UserRecipesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {filteredData.map((recipe: UserRecipesPageProps["recipes"][0]) => (
             <div key={recipe.id} className="flex flex-col gap-3">
-              {recipe.pending && <Badge variant="destructive" className="text-lg">Pending</Badge>}
-              {recipe.inReview && <Badge variant="destructive" className="text-lg">In Review</Badge>}
+              {recipe.pending && <Badge variant="warning" className="text-lg">Pending</Badge>}
+              {recipe.inReview && <Badge variant="warning" className="text-lg">In Review</Badge>}
               {recipe.denied && <Badge variant="destructive" className="text-lg">Denied</Badge>}
               {recipe.published && <Badge className="text-lg">Published</Badge>}
               <UserRecipeCard recipe={recipe} setAuthor={setAuthorFilter} />

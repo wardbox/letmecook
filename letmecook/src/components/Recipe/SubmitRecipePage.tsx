@@ -52,7 +52,7 @@ const recipeFormSchema = z.object({
           .refine(
             (value) =>
               [
-                "g", "kg", "ml", "l", "tsp", "tbsp", "oz", "lb", "fl oz", "c", "pt", "qt", "gal"
+                "g", "kg", "ml", "l", "tsp", "tbsp", "oz", "lb", "fl oz", "c", "pt", "qt", "gal", "piece", "count", "clove"
               ].includes(value.toLowerCase()),
             {
               message: "Invalid measurement",
@@ -247,7 +247,7 @@ export default function SubmitRecipePage() {
                 <FormItem>
                   <FormLabel className="text-2xl">Ingredients</FormLabel>
                   {ingredientFields.map((field, index) => (
-                    <div key={field.id} className="flex flex-col sm:flex-row gap-3">
+                    <div key={field.id} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <Controller
                         control={control}
                         name={`ingredients.${index}.name`}
@@ -307,9 +307,14 @@ export default function SubmitRecipePage() {
                                   <SelectItem value="qt">qt</SelectItem>
                                   <SelectItem value="gal">gal</SelectItem>
                                 </SelectGroup>
+                                <SelectGroup>
+                                  <SelectLabel className="font-bold">Other</SelectLabel>
+                                  <SelectItem value="piece">piece</SelectItem>
+                                  <SelectItem value="count">count</SelectItem>
+                                  <SelectItem value="clove">clove</SelectItem>
+                                </SelectGroup>
                               </SelectContent>
                             </Select>
-
                           )}
                         />
                         <Button
@@ -334,9 +339,6 @@ export default function SubmitRecipePage() {
                   >
                     Add Ingredient
                   </Button>
-                  <FormDescription>
-                    Ingredients for the recipe. Add as many as you need.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -359,7 +361,7 @@ export default function SubmitRecipePage() {
                               placeholder={`${index + 1}`}
                               disabled
                               value={index + 1}
-                              className='w-12'
+                              className='w-12 text-xl font-bold'
                             />
                           </FormControl>
                         )}
@@ -400,9 +402,6 @@ export default function SubmitRecipePage() {
                   >
                     Add Step
                   </Button>
-                  <FormDescription>
-                    Steps for the recipe
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
