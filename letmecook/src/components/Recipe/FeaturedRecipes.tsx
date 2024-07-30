@@ -6,6 +6,7 @@ import Votes from "./Votes";
 import { Button } from "../ui/button";
 import { getDownloadFileSignedURL } from "wasp/client/operations";
 import { useEffect, useState } from "react";
+import { SmileySad } from "@phosphor-icons/react";
 
 export function FeaturedRecipes() {
   const { data, error, isLoading } = useQuery(getFeaturedRecipes);
@@ -21,8 +22,7 @@ export function FeaturedRecipes() {
 
   return (
     <section id="featured-recipe" className="flex flex-col gap-3">
-      <h2 className="text-2xl sm:text-3xl font-bold">Featured Recipe</h2>
-      {data && data.length > 0 ? (
+      {data && data.length > 0 && (
         <Card className="max-w-[512px]" aria-description="featured recipe card">
           <CardHeader>
             <CardTitle>
@@ -44,8 +44,13 @@ export function FeaturedRecipes() {
             </Link>
           </CardFooter>
         </Card>
-      ) : (
-        <FeaturedRecipesSkeleton />
+      )}
+      {isLoading && <FeaturedRecipesSkeleton />}
+      {error && (
+        <div className="flex flex-col items-center text-center justify-center gap-3 text-2xl font-bold">
+          <SmileySad size={128} weight="fill" className="text-destructive" />
+          <p>We lost the cookbook. Sorry.</p>
+        </div>
       )}
     </section>
   )

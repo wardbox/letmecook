@@ -3,8 +3,21 @@ app letmecook {
     version: "^0.14.0"
   },
   title: "letmecook",
+  head: [
+    "<meta property='og:type' content='website' />",
+    "<meta property='og:title' content='letmecook' />",
+    "<meta property='og:url' content='https://letmecook.food' />",
+    "<meta property='og:description' content='A clean and simple cookbook with 100% good recipes.' />",
+    "<meta property='og:image' content='https://letmecook.food/logomark.png' />",
+    "<meta name='twitter:image' content='https://letmecook.food/logomark.png' />",
+    "<meta name='twitter:image:width' content='600' />",
+    "<meta name='twitter:image:height' content='600' />",
+    "<meta name='twitter:card' content='summary_large_image' />",
+    "<script defer data-domain='letmecook.food' src='https://plausible.io/js/script.js'></script>",
+  ],
   client: {
     rootComponent: import App from "@src/client/App",
+    setupFn: import setupClient from "@src/client/setup.ts",
   },
   auth: {
     userEntity: User,
@@ -50,7 +63,24 @@ page SubmitRecipePage {
   component: import SubmitRecipePage from "@src/components/Recipe/SubmitRecipePage"
 }
 
+route AdminRoute { path: "/admin", to: AdminPage }
+page AdminPage {
+  authRequired: true,
+  component: import AdminPage from "@src/client/app/AdminPage"
+}
+
+route ProfileRoute { path: "/profile", to: ProfilePage }
+page ProfilePage {
+  authRequired: true,
+  component: import ProfilePage from "@src/client/app/ProfilePage"
+}
+
 // queries
+query getAllPublishedRecipes {
+  fn: import { getAllPublishedRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
 query getAllRecipes {
   fn: import { getAllRecipes } from "@src/server/queries.js",
   entities: [Recipe]
@@ -66,9 +96,34 @@ query getFeaturedRecipes {
   entities: [Recipe]
 }
 
+query getPendingRecipes {
+  fn: import { getPendingRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getInReviewRecipes {
+  fn: import { getInReviewRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getDeniedRecipes {
+  fn: import { getDeniedRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
 query getDownloadFileSignedURL {
   fn: import { getDownloadFileSignedURL } from "@src/file-upload/operations",
   entities: [User, File]
+}
+
+query getUserRecipes {
+  fn: import { getUserRecipes } from "@src/server/queries.js",
+  entities: [Recipe]
+}
+
+query getRecipeComments {
+  fn: import { getRecipeComments } from "@src/server/queries.js",
+  entities: [Recipe, RecipeComment]
 }
 
 // actions
@@ -80,4 +135,44 @@ action createFile {
 action createRecipe {
   fn: import { createRecipe } from "@src/server/actions.js",
   entities: [User, Recipe, Tag, Ingredient, Step]
+}
+
+action setRecipePending {
+  fn: import { setRecipePending } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeInReview {
+  fn: import { setRecipeInReview } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeDenied {
+  fn: import { setRecipeDenied } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipePublished {
+  fn: import { setRecipePublished } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action createRecipeComment {
+  fn: import { createRecipeComment } from "@src/server/actions.js",
+  entities: [Recipe, RecipeComment]
+}
+
+action setUserSeenComment {
+  fn: import { setUserSeenComment } from "@src/server/actions.js",
+  entities: [User, RecipeComment]
+}
+
+action setRecipeFeatured {
+  fn: import { setRecipeFeatured } from "@src/server/actions.js",
+  entities: [Recipe]
+}
+
+action setRecipeUnfeatured {
+  fn: import { setRecipeUnfeatured } from "@src/server/actions.js",
+  entities: [Recipe]
 }

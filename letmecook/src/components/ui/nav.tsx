@@ -102,6 +102,19 @@ export const Nav = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <Link to="/profile">
+                <DropdownMenuItem className="cursor-pointer">
+                  Profile
+                </DropdownMenuItem>
+              </Link>
+              {user.isAdmin && (
+                <Link to="/admin">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Admin
+                  </DropdownMenuItem>
+                </Link>
+              )}
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logout} className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           ) : (

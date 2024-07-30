@@ -3,7 +3,7 @@ import { FeaturedRecipes } from "../../components/Recipe/FeaturedRecipes";
 
 export default function LandingPage() {
   return (
-    <div className="h-full max-w-3xl mx-auto my-16 p-3 flex flex-col gap-12 text-balance">
+    <div className="h-full max-w-4xl mx-auto my-16 p-3 flex flex-col gap-12 text-balance">
       <section id="document-title" className="p-3">
         <hgroup className="flex flex-col gap-3">
           <h1 className="text-5xl sm:text-6xl font-bold">letmecook</h1>
