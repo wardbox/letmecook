@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "./button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "./dropdown-menu"
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./sheet"
 import { ChefHat, Hamburger, Plus, User } from "@phosphor-icons/react"
-import logomark from "../../client/static/logomark.svg"
+import logomark from "../../client/static/icon.svg"
 import { useAuth, logout } from 'wasp/client/auth'
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 

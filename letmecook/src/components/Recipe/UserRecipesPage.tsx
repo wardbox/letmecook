@@ -12,10 +12,6 @@ export interface UserRecipesPageProps {
 }
 
 export default function UserRecipesPage() {
-  // TODO: Paginate recipes
-  // filter by upvote ratio (upvotes / (upvotes + downvotes))
-  // filter by newest (which is default right now)
-
   const { data, error, isLoading } = useQuery(getUserRecipes);
   const [filteredData, setFilteredData] = useState<UserRecipesPageProps["recipes"] | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
