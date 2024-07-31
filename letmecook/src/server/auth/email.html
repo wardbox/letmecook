@@ -1,71 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      background-color: #1E1E2E;
-      color: #E2E2E2;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: #2B2B3A;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    h1 {
-      color: #FFFFFF;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: #BFBFBF;
-      margin-bottom: 30px;
-    }
-
-    a {
-      background-color: #FBB040;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .pigeon {
-      width: 100px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <img class="pigeon" src="https://letmecook.food/pigeon" alt="carrier pigeon delivering this email">
-    <h1>Thanks for joining letmecook!</h1>
-    <p>Click the link below to verify your email</p>
-    <a href="${verificationLink}">Verify email</a>
-  </div>
-</body>
-
-</html>
+<div
+  style="font-family: Arial, Helvetica, sans-serif; background-color: #1E1E2E; color: #E2E2E2; display: flex; flex-direction: column; font-background-color: #2B2B3A; gap: 0.75rem; padding: 1.25rem; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%;">
+  <img src="https://letmecook.food/pigeon.png" alt="carrier pigeon delivering this email"
+    style="width: 100px; height: auto; margin-bottom: 3rem;">
+  <h1 style="color: #FFFFFF; margin-bottom: 20px; font-size: 24px;">Thanks for joining letmecook!</h1>
+  <p style="color: #BFBFBF; margin-bottom: 30px; font-size: 16px;">Looks like our homing pigeon survived the journey.
+    Don't let her down, verify your email address below!</p>
+  <a style=" href=" ${verificationLink}"
+    style="background-color: #FBB040; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">Verify
+    email</a>
+</div>

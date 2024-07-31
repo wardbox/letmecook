@@ -25,157 +25,26 @@ export const getVerificationEmailContent: GetVerificationEmailContentFn = (
   subject: "Verify your letmecook account 🧑‍🍳",
   text: `Click the link below to verify your email: ${verificationLink}`,
   html: `
-   <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      background-color: #1E1E2E;
-      color: #E2E2E2;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: #2B2B3A;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    h1 {
-      color: #FFFFFF;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: #BFBFBF;
-      margin-bottom: 30px;
-    }
-
-    a {
-      background-color: #FBB040;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .pigeon {
-      width: 100px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <img class="pigeon" src="https://letmecook.food/pigeon.png" alt="carrier pigeon delivering this email">
-    <h1>Thanks for joining letmecook!</h1>
-    <p>Looks like our homing pigeon survived the journey. Don't let her down, verify your email address below!</p>
-    <a href="${verificationLink}">Verify email</a>
+  <div style="font-family: Arial, Helvetica, sans-serif; background-color: #1E1E2E; text-wrap: balance; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align:center; font-background-color: #2B2B3A; gap: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 48rem;">
+    <img src="https://letmecook.food/pigeon.png" alt="carrier pigeon delivering this email" style="width: 8rem; height: auto; margin-top: 3rem;">
+    <h1 style="color: #FFFFFF; font-size: 2.25rem; line-height: 2.5rem; padding-left: 1.25rem; padding-right: 1.25rem;">Thanks for joining letmecook!</h1>
+    <p style="color: #BFBFBF; font-size: 1.125rem; line-height: 1.75rem; padding-left: 1.25rem; padding-right: 1.25rem;">Looks like our homing pigeon survived the journey. Don't let her down, verify your email address below!</p>
+    <a href="${verificationLink}" style="background-color: #FBB040; border: none; color: black; margin: 3rem; padding: 1.25rem; text-align: center; text-decoration: none; display: inline-block; font-size: 1rem; cursor: pointer; border-radius: 0.5rem;">Verify email</a>
   </div>
-</body>
-
-</html>
-
     `,
 });
 
 export const getPasswordResetEmailContent: GetPasswordResetEmailContentFn = (
   { passwordResetLink },
 ) => ({
-  subject: "Password reset",
+  subject: "Password reset 🔑",
   text: `Click the link below to reset your password: ${passwordResetLink}`,
   html: `
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      background-color: #1E1E2E;
-      color: #E2E2E2;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      background-color: #2B2B3A;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    h1 {
-      color: #FFFFFF;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: #BFBFBF;
-      margin-bottom: 30px;
-    }
-
-    a {
-      background-color: #FBB040;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .pigeon {
-      width: 100px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <img class="pigeon" src="https://letmecook.food/pigeon.png" alt="carrier pigeon delivering this email">
-    <h1>Reset Your Password</h1>
-    <p>Whew, another safe journey for our homing pigeon. Make her proud and click the link below to reset your password</p>
-    <a href="${passwordResetLink}">Reset password</a>
+   <div style="font-family: Arial, Helvetica, sans-serif; background-color: #1E1E2E; text-wrap: balance; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align:center; font-background-color: #2B2B3A; gap: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 48rem;">
+    <img src="https://letmecook.food/pigeon.png" alt="carrier pigeon delivering this email" style="width: 8rem; height: auto; margin-top: 3rem;">
+    <h1 style="color: #FFFFFF; font-size: 2.25rem; line-height: 2.5rem; padding-left: 1.25rem; padding-right: 1.25rem;">Reset your password</h1>
+    <p style="color: #BFBFBF; font-size: 1.125rem; line-height: 1.75rem; padding-left: 1.25rem; padding-right: 1.25rem;">Whew, another safe journey for our homing pigeon. Make her proud and click the link below to reset your password.</p>
+    <a href="${passwordResetLink}" style="background-color: #FBB040; border: none; color: black; margin: 3rem; padding: 1.25rem; text-align: center; text-decoration: none; display: inline-block; font-size: 1rem; cursor: pointer; border-radius: 0.5rem;">Reset password</a>
   </div>
-</body>
-
-</html>
     `,
 });
