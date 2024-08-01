@@ -38,7 +38,7 @@ export default function UserRecipesPage() {
   }, [data, searchTerm, authorFilter]);
 
   return (
-    <div className="flex flex-col h-full max-w-5xl mx-auto p-8 gap-8">
+    <div className="flex flex-col h-full max-w-5xl mx-auto sm:p-3 gap-8">
       <h1 className="text-4xl font-bold">My Recipes</h1>
       <div className="flex flex-col gap-3 items-center sm:items-start">
         <Label htmlFor="recipe-filter">Filter recipes</Label>

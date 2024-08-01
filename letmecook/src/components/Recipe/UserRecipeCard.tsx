@@ -26,7 +26,7 @@ export default function UserRecipeCard({ recipe, setAuthor }: {
   }
 
   return (
-    <Card aria-description="recipe card">
+    <Card aria-description="recipe card" className="min-w-min">
       <CardHeader>
         <CardTitle>
           {recipe.title}
