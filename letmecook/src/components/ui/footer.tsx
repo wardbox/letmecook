@@ -4,7 +4,7 @@ import { Link } from 'wasp/client/router';
 
 export default function Footer() {
   return (
-    <footer className="bg-muted rounded-lg">
+    <footer className="bg-muted rounded-lg printhide">
       <div className="w-full mx-auto items-center p-4 flex flex-col justify-start gap-8 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-col">
           <Link to="/" className="flex items-center gap-3">
