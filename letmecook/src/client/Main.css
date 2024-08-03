@@ -84,7 +84,7 @@ body {
 }
 
 .login svg {
-  fill: var(--foreground);
+  @apply text-background;
 }
 
 .login a {
@@ -96,6 +96,14 @@ body {
 .login a:hover {
   color: white;
   transition-duration: 300ms;
+}
+
+.login span {
+  @apply text-foreground bg-background;
+}
+
+.login input {
+  @apply bg-foreground text-background;
 }
 
 ol li::marker {

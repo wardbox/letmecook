@@ -71,16 +71,6 @@ export const Nav = () => {
         </SheetContent>
       </Sheet>
       <div className="flex w-full justify-end items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        {/* <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <MagnifyingGlass className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search recipes..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
-          </div>
-        </form> */}
         <Link to="/submit" className={buttonVariants({ variant: "default" })}>
           Submit a recipe
         </Link>

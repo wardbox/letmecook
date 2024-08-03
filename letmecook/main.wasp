@@ -4,20 +4,26 @@ app letmecook {
   },
   title: "letmecook",
   head: [
+    "<meta name='title' content='letmecook' />",
+    "<meta name='description' content='A clean and simple cookbook with 100% good recipes.' />",
     "<meta property='og:type' content='website' />",
     "<meta property='og:title' content='letmecook' />",
     "<meta property='og:url' content='https://letmecook.food' />",
     "<meta property='og:description' content='A clean and simple cookbook with 100% good recipes.' />",
-    "<meta property='og:image' content='https://letmecook.food/icon.png' />",
-    "<meta name='twitter:image' content='https://letmecook.food/icon.png' />",
-    "<meta name='twitter:image:width' content='600' />",
-    "<meta name='twitter:image:height' content='600' />",
+    "<meta property='og:image' content='https://letmecook.food/banner.png' />",
+    "<meta name='twitter:image' content='https://letmecook.food/banner.png' />",
+    "<meta name='twitter:image:width' content='1200' />",
+    "<meta name='twitter:image:height' content='628' />",
     "<meta name='twitter:card' content='summary_large_image' />",
     "<script defer data-domain='letmecook.food' src='https://plausible.io/js/script.js'></script>",
+    "<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8035660883137257' crossorigin='anonymous'></script>",
   ],
   client: {
     rootComponent: import App from "@src/client/App",
     setupFn: import setupClient from "@src/client/setup.ts",
+  },
+  emailSender: {
+    provider: Mailgun,
   },
   auth: {
     userEntity: User,
@@ -25,7 +31,22 @@ app letmecook {
       discord: {
         configFn: import { discordAuthConfig } from "@src/server/auth/discord.js",
         userSignupFields: import { discordUserSignupFields } from "@src/server/auth/discord.js",
-      }
+      },
+      email: {
+        fromField: {
+          name: "letmecook",
+          email: "noreply@mg.letmecook.food"
+        },
+        emailVerification: {
+          clientRoute: EmailVerificationRoute,
+           getEmailContentFn: import { getVerificationEmailContent } from "@src/server/auth/email.js",
+        },
+        passwordReset: {
+          clientRoute: PasswordResetRoute,
+          getEmailContentFn: import { getPasswordResetEmailContent } from "@src/server/auth/email.js",
+        },
+        userSignupFields: import { emailUserSignupFields } from "@src/server/auth/email.js",
+      },
     },
     onAuthFailedRedirectTo: "/login",
   }
@@ -73,6 +94,21 @@ route ProfileRoute { path: "/profile", to: ProfilePage }
 page ProfilePage {
   authRequired: true,
   component: import ProfilePage from "@src/client/app/ProfilePage"
+}
+
+route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
+page RequestPasswordResetPage {
+  component: import { RequestPasswordReset } from "@src/auth/emailauth.tsx",
+}
+
+route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
+page PasswordResetPage {
+  component: import { PasswordReset } from "@src/auth/emailauth.tsx",
+}
+
+route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+page EmailVerificationPage {
+  component: import { EmailVerification } from "@src/auth/emailauth.tsx",
 }
 
 // queries
