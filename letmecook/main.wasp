@@ -17,6 +17,7 @@ app letmecook {
     "<meta name='twitter:card' content='summary_large_image' />",
     "<script defer data-domain='letmecook.food' src='https://plausible.io/js/script.js'></script>",
     "<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8035660883137257' crossorigin='anonymous'></script>",
+    "<script async src='https://fundingchoicesmessages.google.com/i/pub-8035660883137257?ers=1' nonce='Nou0ITV_DCXp61IoqJzaQw'></script><script nonce='Nou0ITV_DCXp61IoqJzaQw'>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>",
   ],
   client: {
     rootComponent: import App from "@src/client/App",
@@ -109,6 +110,16 @@ page PasswordResetPage {
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
 page EmailVerificationPage {
   component: import { EmailVerification } from "@src/auth/emailauth.tsx",
+}
+
+route PrivacyPolicyRoute { path: "/privacy-policy", to: PrivacyPolicyPage }
+page PrivacyPolicyPage {
+  component: import PrivacyPolicy from "@src/components/Legal/PrivacyPolicy"
+}
+
+route TermsOfServiceRoute { path: "/terms-of-service", to: TermsOfServicePage }
+page TermsOfServicePage {
+  component: import TermsOfService from "@src/components/Legal/TermsOfService"
 }
 
 // queries
