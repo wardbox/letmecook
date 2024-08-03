@@ -16,6 +16,7 @@ app letmecook {
     "<meta name='twitter:image:height' content='628' />",
     "<meta name='twitter:card' content='summary_large_image' />",
     "<script defer data-domain='letmecook.food' src='https://plausible.io/js/script.js'></script>",
+    "<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8035660883137257' crossorigin='anonymous'></script>",
   ],
   client: {
     rootComponent: import App from "@src/client/App",
