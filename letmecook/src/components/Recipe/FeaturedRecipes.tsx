@@ -22,20 +22,20 @@ export function FeaturedRecipes() {
   }, [data]);
 
   return (
-    <section id="featured-recipe" className="flex flex-col gap-3">
+    <section id="featured-recipe">
       {data && data.length > 0 && (
-        <Card className="max-w-[512px]" aria-description="featured recipe card">
+        <Card className="max-w-[512px]" aria-description="recipe card">
           <CardHeader>
             <CardTitle>
               {data[0].title}
             </CardTitle>
-            <CardDescription>by {data[0].author.username}</CardDescription>
+            <CardDescription >by {data[0].author.username}</CardDescription>
           </CardHeader>
-          <CardContent className="flex relative aspect-square items-center justify-center p-6 overflow-hidden">
+          <CardContent className="flex flex-col gap-3">
             {photo ? (
-              <img className="rounded-md w-full h-[256px] sm:h-[512px] object-cover" src={photo} alt="photo of food" />
+              <img className="object-cover rounded-md w-full h-[256px]" src={photo} alt={`photo of ${data[0].title}`} />
             ) : (
-              <Skeleton className="rounded-md w-full h-[256px] sm:h-[512px] object-cover" />
+              <Skeleton className="object-cover rounded-md w-full h-[256px]" />
             )}
           </CardContent>
           <CardFooter className="sm:p-5 flex justify-between items-center">

@@ -26,7 +26,7 @@ export default function Footer() {
               <li className="text-sm">
                 <Link to="/recipes" className="text-muted-foreground underline hover:shadow">Recipes</Link>
               </li>
-              <li className="text-smd">
+              <li className="text-sm">
                 <Link to="/submit" className="text-muted-foreground underline hover:shadow">Submit</Link>
               </li>
             </ul>

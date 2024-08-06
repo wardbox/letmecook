@@ -26,7 +26,7 @@ export function RecipeCard({ recipe, setAuthor }: {
   }
 
   return (
-    <Card className="h-[x]" aria-description="recipe card">
+    <Card aria-description="recipe card">
       <CardHeader>
         <CardTitle>
           {recipe.title}
