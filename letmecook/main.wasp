@@ -228,3 +228,8 @@ action createVote {
   fn: import { createVote } from "@src/server/actions.js",
   entities: [User, Vote, Recipe]
 }
+
+action updateRecipe {
+  fn: import { updateRecipe } from "@src/server/actions.js",
+  entities: [Recipe, Tag, Ingredient, Step]
+}

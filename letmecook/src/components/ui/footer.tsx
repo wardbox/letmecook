@@ -23,10 +23,10 @@ export default function Footer() {
               <li className="font-semibold">
                 Explore
               </li>
-              <li className="text-sm font-semibold">
+              <li className="text-sm">
                 <Link to="/recipes" className="text-muted-foreground underline hover:shadow">Recipes</Link>
               </li>
-              <li className="text-sm font-semibold">
+              <li className="text-smd">
                 <Link to="/submit" className="text-muted-foreground underline hover:shadow">Submit</Link>
               </li>
             </ul>
