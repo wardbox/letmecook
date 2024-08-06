@@ -12,14 +12,17 @@ import { useAuth } from "wasp/client/auth";
 import RecipeAdminStatusForm from "./RecipeAdminStatusForm";
 import RecipeComments from "./RecipeComments";
 import { Skeleton } from "../ui/skeleton";
+import RecipeForm from "./RecipeForm";
 
 export interface RecipePageProps {
-  recipe: Awaited<ReturnType<typeof getRecipe>>;
+  recipe?: Awaited<ReturnType<typeof getRecipe>>;
 }
 
 export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!props.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   const { data, error, isLoading } = useQuery(getRecipe, { recipeId: props.match.params.id });
@@ -27,6 +30,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
   const url = location.href;
   const [photo, setPhoto] = useState<string | null>(null);
   const { data: user } = useAuth();
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     if (data && !user?.isAdmin && user?.id !== data.authorId && !data.published) {
@@ -94,6 +98,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
               <RecipeComments recipeId={data.id} />
             </div>
           </div>
+          <Button className="max-w-min" onClick={() => setEditMode(!editMode)}>Edit Recipe</Button>
         </div>
       )}
       {data && user?.isAdmin && (
@@ -103,7 +108,7 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
           <Button className="max-w-min" variant="destructive" onClick={setUnfeatured}>Unfeature Recipe</Button>
         </div>
       )}
-      {data && (
+      {data && !editMode && (
         data.published ||
         (user && (data.authorId === user.id || user.isAdmin))
       ) && (
@@ -165,6 +170,9 @@ export default function RecipePage(props: RouteComponentProps<{ id: string }>) {
             </section>
           </div>
         )}
+      {editMode && data && (
+        <RecipeForm recipe={data} setEditMode={setEditMode} />
+      )}
       {isLoading && <p>Loading...</p>}
       {error && (
         <div className="flex flex-col items-center text-center justify-center gap-3 text-2xl font-bold">
