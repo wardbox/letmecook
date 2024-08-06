@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "./button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "./dropdown-menu"
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./sheet"
 import { Hamburger, User } from "@phosphor-icons/react"
-import logomark from "../../client/static/icon.svg"
+import logomark from "../../../public/icon.svg"
 import { useAuth, logout } from 'wasp/client/auth'
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 
@@ -11,13 +11,13 @@ export const Nav = () => {
   const { data: user } = useAuth()
 
   return (
-    <header className="printhide static top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="printhide static flex items-center gap-8 bg-muted px-4 h-24 md:p-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           to="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <img src={logomark} alt="letmecook logomark" className="h-16" />
+          <img src={logomark} alt="letmecook logomark" className='h-20 object-scale-down' />
           <span className="sr-only">letmecook</span>
         </Link>
         <Link
@@ -45,7 +45,7 @@ export const Nav = () => {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="flex flex-col">
-          <img src={logomark} alt="letmecook-mobile-logomark" className="h-12" />
+          <img src={logomark} alt="letmecook-mobile-logomark" className="h-20 object-scale-down" />
           <SheetTitle>letmecook</SheetTitle>
           <SheetDescription>A clean and simple cookbook with 100% good recipes.</SheetDescription>
           <nav className="grid gap-6 text-lg font-medium">
