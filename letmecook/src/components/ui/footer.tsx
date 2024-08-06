@@ -38,6 +38,17 @@ export default function Footer() {
                 <a href="https://discord.gg/U7ttVJS2us" target="_blank" className="text-muted-foreground underline hover:shadow">Discord</a>
               </li>
             </ul>
+            <ul>
+              <li className="font-semibold">
+                Legal
+              </li>
+              <li className="text-sm">
+                <Link to="/privacy-policy" className="text-muted-foreground underline hover:shadow">Privacy Policy</Link>
+              </li>
+              <li className="text-sm">
+                <Link to="/terms-of-service" className="text-muted-foreground underline hover:shadow">Terms of Service</Link>
+              </li>
+            </ul>
           </nav>
         </div>
       </div>

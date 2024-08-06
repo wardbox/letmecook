@@ -10,7 +10,10 @@ export default function LandingPage() {
           <p className="text-xl sm:text-3xl subtitle font-light text-muted-foreground">A clean and simple cookbook with 100% good recipes.</p>
         </hgroup>
       </section>
-      <FeaturedRecipes />
+      <section id="featured-recipes" className="p-3">
+        <h2 className="p-3 text-xl sm:text-3xl font-bold">Featured recipe</h2>
+        <FeaturedRecipes />
+      </section>
       <section id="features" className="p-3 flex flex-col gap-5">
         {features.map((feature) => (
           <div key={feature.title}>
